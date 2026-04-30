@@ -126,6 +126,7 @@ header{
 /* sliding pill behind active tab */
 .tab-indicator{
   position:absolute;top:4px;left:4px;
+  height:calc(100% - 8px);
   border-radius:100px;
   background:var(--accent);
   transition:transform .3s cubic-bezier(.34,1.2,.64,1),width .3s cubic-bezier(.34,1.2,.64,1);
@@ -133,19 +134,8 @@ header{
 }
 .tab-btn{z-index:1}
 
-@media(max-width:600px){
-  .nav-tabs-wrap { padding: 24px 20px; }
-  .nav-tabs { 
-    flex-direction: column; 
-    width: 100%; 
-    border-radius: 16px; /* Borda mais quadrada para modo lista */
-  }
-  .tab-btn { 
-    width: 100%; 
-    padding: 12px 14px; 
-    font-size: 11px; 
-  }
-  .tab-indicator { border-radius: 12px; }
+@media(max-width:480px){
+  .tab-btn{padding:8px 14px;font-size:11px}
 }
 
 /* ═══════════════════════════════════════════════════
@@ -305,10 +295,9 @@ input.fipe-out{
 .btn.b{background:var(--car-b);color:#0b0d12}
 
 .loading-row{
-  display:none;flex-direction:column;gap:8px;
-  margin-top:12px;
+  display:none;align-items:center;gap:8px;
+  margin-top:10px;font-size:12px;color:var(--text2);
 }
-.loading-top{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--text2)}
 .spinner{
   width:14px;height:14px;flex-shrink:0;
   border:2px solid var(--border2);border-radius:50%;
@@ -318,36 +307,6 @@ input.fipe-out{
 .spinner.a{border-top-color:var(--car-a)}
 .spinner.b{border-top-color:var(--car-b)}
 @keyframes spin{to{transform:rotate(360deg)}}
-
-/* progress track */
-.loading-track{
-  height:3px;border-radius:2px;
-  background:var(--bg4);overflow:hidden;
-}
-.loading-bar{
-  height:100%;border-radius:2px;width:0%;
-  transition:width .6s ease;
-}
-.loading-bar.single{background:var(--single-c)}
-.loading-bar.a{background:var(--car-a)}
-.loading-bar.b{background:var(--car-b)}
-
-/* source badge shown in insight */
-.rate-badge{
-  display:inline-flex;align-items:center;gap:5px;
-  font-size:10px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;
-  padding:3px 8px;border-radius:100px;margin-top:8px;
-}
-.rate-badge.historical{
-  background:rgba(77,255,145,.1);
-  border:1px solid rgba(77,255,145,.3);
-  color:var(--green);
-}
-.rate-badge.fallback{
-  background:rgba(255,140,66,.1);
-  border:1px solid rgba(255,140,66,.3);
-  color:var(--orange);
-}
 
 /* ═══════════════════════════════════════════════════
    RESULTS SHELL
@@ -531,7 +490,7 @@ footer a{color:var(--accent);text-decoration:none}
 <!-- ══════════ HERO ══════════ -->
 <div class="hero">
   <span class="hero-tag">Simulador Automotivo</span>
-  <h1>Descubra o <em>valor real</em><br>do seu próximo carro</h1>
+  <h1>Descubra quanto seu carro<br><em>vai valer</em> no futuro</h1>
   <p>Consulte preços FIPE em tempo real e projete a desvalorização com decaimento composto e fator de quilometragem.</p>
 </div>
 
@@ -605,11 +564,8 @@ footer a{color:var(--accent);text-decoration:none}
 
           <button class="btn single" id="btn-single" onclick="carSingle.consultar()">Consultar Tabela FIPE</button>
           <div class="loading-row" id="loading-single">
-            <div class="loading-top">
-              <div class="spinner single"></div>
-              <span id="loadingMsg-single">Consultando FIPE atual...</span>
-            </div>
-            <div class="loading-track"><div class="loading-bar single" id="loadingBar-single"></div></div>
+            <div class="spinner single"></div>
+            <span id="loadingMsg-single">Buscando dados...</span>
           </div>
 
         </div>
@@ -729,11 +685,8 @@ footer a{color:var(--accent);text-decoration:none}
             </div>
             <button class="btn a" id="btn-a" onclick="carA.consultar()">Consultar FIPE</button>
             <div class="loading-row" id="loading-a">
-              <div class="loading-top">
-                <div class="spinner a"></div>
-                <span id="loadingMsg-a">Consultando FIPE atual...</span>
-              </div>
-              <div class="loading-track"><div class="loading-bar a" id="loadingBar-a"></div></div>
+              <div class="spinner a"></div>
+              <span id="loadingMsg-a">Buscando...</span>
             </div>
           </div>
         </div>
@@ -777,11 +730,8 @@ footer a{color:var(--accent);text-decoration:none}
             </div>
             <button class="btn b" id="btn-b" onclick="carB.consultar()">Consultar FIPE</button>
             <div class="loading-row" id="loading-b">
-              <div class="loading-top">
-                <div class="spinner b"></div>
-                <span id="loadingMsg-b">Consultando FIPE atual...</span>
-              </div>
-              <div class="loading-track"><div class="loading-bar b" id="loadingBar-b"></div></div>
+              <div class="spinner b"></div>
+              <span id="loadingMsg-b">Buscando...</span>
             </div>
           </div>
         </div>
@@ -882,22 +832,12 @@ footer a{color:var(--accent);text-decoration:none}
 'use strict';
 
 /* ─── CONFIG ─── */
-const API         = 'https://parallelum.com.br/fipe/api/v1';
-const KM_REF      = 12000;
-const MAX_YR      = 15;
-const ZERO        = '32000';
-const CACHE_NS    = 'av_rate_v1_';   // localStorage key prefix
-const CACHE_TTL   = 7 * 24 * 3600e3; // 7 days in ms
-const FETCH_TIMEOUT = 10000;         // ms per fetch
+const API    = 'https://parallelum.com.br/fipe/api/v1';
+const KM_REF = 12000;
+const MAX_YR = 15;
+const ZERO   = '32000';
 
-// ── Proxy URL ──────────────────────────────────────────────────────────────
-// Set this after deploying the proxy server. Leave '' to use category fallback.
-//   Local:   'http://localhost:3001'
-//   Render:  'https://autovalor-proxy.onrender.com'
-//   Railway: 'https://autovalor-proxy.up.railway.app'
-const PROXY_URL = 'https://auto-valor-full.onrender.com';
-
-/* ─── PROFILES (fallback rates) ─── */
+/* ─── PROFILES ─── */
 const PROF = {
   popular: { label:'Popular', rate:.08, key:'popular' },
   padrao:  { label:'Padrão',  rate:.12, key:'padrao'  },
@@ -913,123 +853,6 @@ function getProfile(brand) {
   if (PREMIUM_BRANDS.some(b => u.includes(b))) return PROF.premium;
   if (POPULAR_BRANDS.some(b => u.includes(b))) return PROF.popular;
   return PROF.padrao;
-}
-
-/* ─── FETCH WITH TIMEOUT ─── */
-function fetchWithTimeout(url, ms = FETCH_TIMEOUT) {
-  const ctrl = new AbortController();
-  const tid   = setTimeout(() => ctrl.abort(), ms);
-  return fetch(url, { signal: ctrl.signal }).finally(() => clearTimeout(tid));
-}
-
-/* ─── LOCALSTORAGE CACHE ─── */
-function cacheGet(fipeCode) {
-  try {
-    const raw = localStorage.getItem(CACHE_NS + fipeCode);
-    if (!raw) return null;
-    const { rate, ts } = JSON.parse(raw);
-    if (Date.now() - ts > CACHE_TTL) { localStorage.removeItem(CACHE_NS + fipeCode); return null; }
-    return rate;
-  } catch { return null; }
-}
-function cacheSet(fipeCode, rate) {
-  try { localStorage.setItem(CACHE_NS + fipeCode, JSON.stringify({ rate, ts: Date.now() })); } catch {}
-}
-
-/* ═══════════════════════════════════════════════════════════════════════════
-   HISTORICAL RATE RESOLVER
-   ─────────────────────────────────────────────────────────────────────────
-   Priority chain:
-     1. localStorage cache (by FIPE code, 7-day TTL) → instant return
-     2. Proxy available → fetch /referencias + 3 × /preco → compute real rate
-     3. Any failure / no proxy configured → graceful fallback to category rate
-
-   Formula:
-     r1     = (v24 - v12) / v24          (second year drop)
-     r2     = (v12 - v0)  / v12          (first year drop)
-     rMedio = (r1 + r2) / 2              (annualised average)
-     clamp  = [0.01, 0.40]               (guard against bad data)
-
-   Returns: { rate: number, fromCache: bool, usedFallback: bool }
-═══════════════════════════════════════════════════════════════════════════ */
-async function resolveRateReal(tipo, marcaCod, modeloCod, anoCod, fipeCode, fallbackRate, onStep) {
-
-  /* ── 1. Cache hit ── */
-  const cached = cacheGet(fipeCode);
-  if (cached !== null) {
-    onStep(3, 3);
-    return { rate: cached, fromCache: true, usedFallback: false };
-  }
-
-  /* ── 2. No proxy configured → skip to fallback immediately ── */
-  if (!PROXY_URL) {
-    onStep(3, 3);
-    return { rate: fallbackRate, fromCache: false, usedFallback: true };
-  }
-
-  try {
-    /* ── 3. Fetch reference months list via proxy ── */
-    onStep(1, 3);
-    const refs = await fetchWithTimeout(`${PROXY_URL}/api/referencias`).then(r => r.json());
-    if (!Array.isArray(refs) || refs.length < 25) throw new Error('refs_too_short');
-
-    // refs[0] = current month, refs[12] = 12 months ago, refs[24] = 24 months ago
-    const tabelaAtual = refs[0].Codigo;
-    const tabela12    = refs[12].Codigo;
-    const tabela24    = refs[24].Codigo;
-
-    /* ── 4. Parallel fetch of 3 price snapshots via proxy ── */
-    onStep(2, 3);
-
-    // Build proxy URL for one reference period
-    const precoUrl = (tabela) =>
-      `${PROXY_URL}/api/preco?tipo=${encodeURIComponent(tipo)}&marca=${encodeURIComponent(marcaCod)}&modelo=${encodeURIComponent(modeloCod)}&ano=${encodeURIComponent(anoCod)}&tabela=${encodeURIComponent(tabela)}`;
-
-    const results = await Promise.allSettled([
-      fetchWithTimeout(precoUrl(tabelaAtual)).then(r => r.json()),  // v0  (now)
-      fetchWithTimeout(precoUrl(tabela12)).then(r => r.json()),     // v12 (12m ago)
-      fetchWithTimeout(precoUrl(tabela24)).then(r => r.json()),     // v24 (24m ago)
-    ]);
-
-    // Extract valid numeric prices; null = failed or unparseable
-    const [v0, v12, v24] = results.map(r => {
-      if (r.status !== 'fulfilled') return null;
-      const v = parsePrice(r.value?.Valor);
-      return (v && v > 0) ? v : null;
-    });
-
-    /* ── 5. Compute average annual depreciation rate ── */
-    if (v0 && v12 && v24) {
-      // Both years available: average the two annual drop rates
-      const r1     = (v24 - v12) / v24;   // drop in year 2→1 ago
-      const r2     = (v12 - v0)  / v12;   // drop in year 1→now
-      const rMedio = (r1 + r2) / 2;
-      const rate   = Math.min(Math.max(rMedio, 0.01), 0.40);
-      onStep(3, 3);
-      cacheSet(fipeCode, rate);
-      return { rate, fromCache: false, usedFallback: false };
-    }
-
-    if (v0 && v12) {
-      // Only 1 year of data: use single-period rate
-      const rate = Math.min(Math.max((v12 - v0) / v12, 0.01), 0.40);
-      onStep(3, 3);
-      cacheSet(fipeCode, rate);
-      return { rate, fromCache: false, usedFallback: false };
-    }
-
-    throw new Error('insufficient_price_data');
-
-  } catch (err) {
-    console.warn('[AutoValor] Historical rate fetch failed, using fallback:', err.message);
-    onStep(3, 3);
-    return { rate: fallbackRate, fromCache: false, usedFallback: true };
-  }
-}
-
-function parsePrice(val) {
-  if (!val) return 0;
-  return parseFloat(String(val).replace('R$','').replace(/\./g,'').replace(',','.').trim()) || 0;
 }
 
 /* ─── MATH ─── */
@@ -1146,29 +969,13 @@ function renderInsightFor(car, elId, colorKey) {
   const F      = kmF(car.kmAnual).toFixed(2);
   const high   = parseFloat(pct) > 40;
   const zero   = car.isZeroKm ? ' Veículo Zero KM: depreciação imediata de saída de concessionária considerada (+1 ano de offset).' : '';
-
-  /* Rate source badge */
-  let badgeHTML = '';
-  if (car.fromCache) {
-    badgeHTML = `<span class="rate-badge historical">📦 Taxa histórica (cache)</span>`;
-  } else if (car.usedFallback) {
-    badgeHTML = `<span class="rate-badge fallback">⚠ Projeção baseada na média de mercado para a categoria — histórico real indisponível no momento.</span>`;
-  } else {
-    badgeHTML = `<span class="rate-badge historical">📊 Taxa calculada via histórico FIPE real</span>`;
-  }
-
-  const rateLabel = car.usedFallback
-    ? `${car.profile.label} (${(car.rateUsed*100).toFixed(1)}%/ano — categoria)`
-    : `${car.profile.label} (${(car.rateUsed*100).toFixed(1)}%/ano — histórico FIPE)`;
-
   el.innerHTML = `
     <strong style="color:var(--text)">${car.marcaNome} ${car.modeloNome}</strong>
-    · ${rateLabel}.<br>
+    · Perfil <strong>${car.profile.label}</strong> (${(car.profile.rate*100).toFixed(0)}%/ano).<br>
     Com <strong>${car.kmAnual.toLocaleString('pt-BR')} km/ano</strong>, fator KM = <strong>${F}×</strong>.
     Após <strong>${anosLbl(anos)}</strong>: estimado em <strong style="color:var(--text)">${fmt(vF)}</strong>
     — desvalorização de <strong style="color:${high?'var(--red)':'var(--green)'}">${pct}%</strong>.
-    ${high?'⚠ Acima da média.':'✓ Dentro da média histórica.'}${zero}
-    <br>${badgeHTML}`;
+    ${high?'⚠ Acima da média.':'✓ Dentro da média histórica.'}${zero}`;
 }
 
 /* ════════════════════════════════════════════
@@ -1176,20 +983,14 @@ function renderInsightFor(car, elId, colorKey) {
 ════════════════════════════════════════════ */
 class CarState {
   constructor(id) {
-    this.id          = id;
-    this.preco       = 0;
-    this.anoVeiculo  = 0;
-    this.isZeroKm    = false;
-    this.marcaNome   = '';
-    this.modeloNome  = '';
-    this.fipeCode    = '';   // ← FIPE code (e.g. "038003-3") used as cache key
-    this.profile     = null;
-    this.rateUsed    = 0;    // ← final rate applied (historical or fallback)
-    this.usedFallback = false;
-    this.fromCache    = false;
-    this.ready       = false;
-
-    this._loadingInterval = null; // setInterval handle for message cycling
+    this.id         = id;
+    this.preco      = 0;
+    this.anoVeiculo = 0;
+    this.isZeroKm   = false;
+    this.marcaNome  = '';
+    this.modeloNome = '';
+    this.profile    = null;
+    this.ready      = false;
 
     this.$tipo    = document.getElementById(`tipo-${id}`);
     this.$marca   = document.getElementById(`marca-${id}`);
@@ -1200,7 +1001,6 @@ class CarState {
     this.$btn     = document.getElementById(`btn-${id}`);
     this.$loading = document.getElementById(`loading-${id}`);
     this.$msg     = document.getElementById(`loadingMsg-${id}`);
-    this.$bar     = document.getElementById(`loadingBar-${id}`);
     this.$profile = document.getElementById(`profileTag-${id}`);
 
     fillTipo(this.$tipo);
@@ -1214,7 +1014,7 @@ class CarState {
   }
 
   _onKmChange() {
-    if      (this.id === 'single')               renderSingle();
+    if      (this.id === 'single')  renderSingle();
     else if (this.id === 'a' || this.id === 'b') renderCompare();
   }
 
@@ -1223,49 +1023,14 @@ class CarState {
     return (!isNaN(v) && v >= 1000) ? v : KM_REF;
   }
 
-  /* ── Loading UI ── */
-  _startLoading() {
-    const MSGS = [
-      'Consultando FIPE atual...',
-      'Buscando histórico de 24 meses...',
-      'Calculando curva de desvalorização...',
-    ];
-    const PCTS = ['18%', '55%', '85%'];
-    let idx = 0;
-
+  _setLoading(msg) {
     this.$loading.style.display = 'flex';
-    this.$msg.textContent = MSGS[0];
-    if (this.$bar) this.$bar.style.width = PCTS[0];
+    this.$msg.textContent = msg;
     this.$btn.disabled = true;
-
-    this._loadingInterval = setInterval(() => {
-      idx = Math.min(idx + 1, MSGS.length - 1);
-      this.$msg.textContent = MSGS[idx];
-      if (this.$bar) this.$bar.style.width = PCTS[idx];
-    }, 1500);
   }
-
-  _stepLoading(step, total) {
-    /* step is 1-indexed (1=fetching refs, 2=fetching prices, 3=done) */
-    const pcts = ['18%', '55%', '85%', '100%'];
-    const msgs = [
-      'Consultando FIPE atual...',
-      'Buscando histórico de 24 meses...',
-      'Calculando curva de desvalorização...',
-      'Finalizando...',
-    ];
-    if (this.$bar) this.$bar.style.width = pcts[step] || '100%';
-    this.$msg.textContent = msgs[step] || msgs[msgs.length - 1];
-  }
-
   _clearLoading() {
-    if (this._loadingInterval) { clearInterval(this._loadingInterval); this._loadingInterval = null; }
-    if (this.$bar) this.$bar.style.width = '100%';
-    setTimeout(() => {
-      this.$loading.style.display = 'none';
-      this.$btn.disabled = false;
-      if (this.$bar) this.$bar.style.width = '0%';
-    }, 300);
+    this.$loading.style.display = 'none';
+    this.$btn.disabled = false;
   }
 
   _resetModelo() {
@@ -1277,19 +1042,18 @@ class CarState {
     this.$ano.innerHTML = '<option value="">Selecione o modelo</option>';
     this.$ano.disabled  = true;
     this.$fipe.value    = '';
-    this.ready          = false;
-    this.profile        = null;
+    this.ready  = false;
+    this.profile = null;
     this.$profile.className   = 'profile-tag';
     this.$profile.textContent = '—';
   }
 
-  /* ── API: dropdowns ── */
   async loadMarcas() {
     const tipo = this.$tipo.value;
     this.$marca.innerHTML = '<option value="">Carregando...</option>';
     this._resetModelo();
     try {
-      const d = await (await fetchWithTimeout(`${API}/${tipo}/marcas`)).json();
+      const d = await (await fetch(`${API}/${tipo}/marcas`)).json();
       this.$marca.innerHTML = '<option value="">Selecione a marca</option>';
       d.forEach(m => this.$marca.appendChild(new Option(m.nome, m.codigo)));
     } catch { this.$marca.innerHTML = '<option value="">Erro ao carregar</option>'; }
@@ -1302,7 +1066,7 @@ class CarState {
     this._resetAno();
     try {
       const tipo = this.$tipo.value;
-      const d = await (await fetchWithTimeout(`${API}/${tipo}/marcas/${this.$marca.value}/modelos`)).json();
+      const d = await (await fetch(`${API}/${tipo}/marcas/${this.$marca.value}/modelos`)).json();
       this.$modelo.innerHTML = '<option value="">Selecione o modelo</option>';
       d.modelos.forEach(m => this.$modelo.appendChild(new Option(m.nome, m.codigo)));
     } catch { this.$modelo.innerHTML = '<option value="">Erro ao carregar</option>'; }
@@ -1315,7 +1079,7 @@ class CarState {
     this.$fipe.value = '';
     try {
       const tipo = this.$tipo.value;
-      const d = await (await fetchWithTimeout(`${API}/${tipo}/marcas/${this.$marca.value}/modelos/${this.$modelo.value}/anos`)).json();
+      const d = await (await fetch(`${API}/${tipo}/marcas/${this.$marca.value}/modelos/${this.$modelo.value}/anos`)).json();
       this.$ano.innerHTML = '<option value="">Selecione o ano</option>';
       d.forEach(a => {
         const isZero = String(a.codigo).startsWith(ZERO);
@@ -1324,56 +1088,32 @@ class CarState {
     } catch { this.$ano.innerHTML = '<option value="">Erro ao carregar</option>'; }
   }
 
-  /* ── MAIN: consultar ──
-     1. Fetch current FIPE price
-     2. Resolve historical rate (cache → real API → fallback)
-     3. Render
-  ── */
   async consultar() {
-    const marcaCod  = this.$marca.value;
-    const modeloCod = this.$modelo.value;
-    const anoCod    = this.$ano.value;
+    const { value: marcaCod } = this.$marca;
+    const { value: modeloCod } = this.$modelo;
+    const { value: anoCod }   = this.$ano;
     if (!marcaCod || !modeloCod || !anoCod) {
-      alert('Selecione marca, modelo e ano.');
+      alert(`Selecione marca, modelo e ano.`);
       return;
     }
-
-    this._startLoading();
-
+    this._setLoading('Consultando FIPE...');
     try {
       const tipo = this.$tipo.value;
-
-      /* ── Step 1: current FIPE price ── */
-      const d = await (await fetchWithTimeout(`${API}/${tipo}/marcas/${marcaCod}/modelos/${modeloCod}/anos/${anoCod}`)).json();
-
-      this.preco      = parsePrice(d.Valor);
+      const d    = await (await fetch(`${API}/${tipo}/marcas/${marcaCod}/modelos/${modeloCod}/anos/${anoCod}`)).json();
+      this.preco      = parseFloat(d.Valor.replace('R$','').replace(/\./g,'').replace(',','.').trim());
       this.anoVeiculo = parseInt(d.AnoModelo, 10);
       this.isZeroKm   = String(anoCod).startsWith(ZERO);
-      this.fipeCode   = d.CodigoFipe || `${marcaCod}-${modeloCod}-${anoCod}`;
       this.marcaNome  = this.$marca.options[this.$marca.selectedIndex]?.text ?? '';
       this.modeloNome = this.$modelo.options[this.$modelo.selectedIndex]?.text ?? '';
       this.profile    = getProfile(this.marcaNome);
+      this.ready      = true;
 
       this.$fipe.value = d.Valor;
       this.$profile.className   = `profile-tag ${this.profile.key}`;
       this.$profile.textContent = this.profile.label;
 
-      /* ── Step 2: resolve rate (historical or fallback) ── */
-      const { rate, fromCache, usedFallback } = await resolveRateReal(
-        tipo, marcaCod, modeloCod, anoCod,
-        this.fipeCode,
-        this.profile.rate,                   // fallback rate
-        (step) => this._stepLoading(step, 3) // progress callback
-      );
-
-      this.rateUsed     = rate;
-      this.fromCache    = fromCache;
-      this.usedFallback = usedFallback;
-      this.ready        = true;
-
       this._clearLoading();
 
-      /* ── Step 3: reveal results ── */
       if (this.id === 'single') {
         document.getElementById('emptyS').style.display  = 'none';
         document.getElementById('activeS').style.display = 'block';
@@ -1383,22 +1123,18 @@ class CarState {
         document.getElementById('activeC').style.display = 'block';
         renderCompare();
       }
-
-    } catch (err) {
+    } catch {
       this._clearLoading();
       alert('Erro ao consultar FIPE. Verifique sua conexão.');
     }
   }
 
-  /* ── Projection ──
-     V_final = V0 * (1 - rMedio * F)^anos
-     Zero KM: +1 year offset for first-year cliff
-  ── */
+  /* valueAt(anos) — compound projection with Zero KM offset */
   valueAt(anos) {
     if (!this.ready || anos < 0) return null;
     if (anos === 0) return this.preco;
     const offset = this.isZeroKm ? anos + 1 : anos;
-    return proj(this.preco, offset, this.rateUsed, this.kmAnual);
+    return proj(this.preco, offset, this.profile.rate, this.kmAnual);
   }
 }
 
@@ -1422,7 +1158,6 @@ function renderSingle() {
   const loss = carSingle.preco - vF;
   const pct  = (loss / carSingle.preco * 100).toFixed(1);
   const F    = kmF(carSingle.kmAnual).toFixed(2);
-  const rateSrc = carSingle.usedFallback ? 'categoria' : carSingle.fromCache ? 'cache' : 'histórico FIPE';
   document.getElementById('metricsS').innerHTML = `
     <div class="metric-card s">
       <p class="mc-lbl">Valor Atual (FIPE)</p>
@@ -1437,7 +1172,7 @@ function renderSingle() {
     <div class="metric-card s">
       <p class="mc-lbl">Perda Total</p>
       <p class="mc-val danger">-${pct}%</p>
-      <p class="mc-sub">Taxa ${(carSingle.rateUsed*100).toFixed(1)}%/ano · ${rateSrc}</p>
+      <p class="mc-sub">-${fmt(loss)}</p>
     </div>`;
 
   /* Bars */
@@ -1517,7 +1252,6 @@ function _renderCompareMetrics(car, colId, slot, anos) {
   const loss = car.preco - vF;
   const pct  = (loss / car.preco * 100).toFixed(1);
   const F    = kmF(car.kmAnual).toFixed(2);
-  const rateSrc = car.usedFallback ? 'categoria' : car.fromCache ? 'cache' : 'histórico FIPE';
   col.innerHTML = `
     <div class="metric-card ${slot}">
       <p class="mc-lbl">Valor Atual (FIPE)</p>
@@ -1532,7 +1266,7 @@ function _renderCompareMetrics(car, colId, slot, anos) {
     <div class="metric-card ${slot}">
       <p class="mc-lbl">Perda Total</p>
       <p class="mc-val danger">-${pct}%</p>
-      <p class="mc-sub">Taxa ${(car.rateUsed*100).toFixed(1)}%/ano · ${rateSrc}</p>
+      <p class="mc-sub">-${fmt(loss)}</p>
       <span class="winner-badge" id="winner-${slot}">✓ Menor perda</span>
     </div>`;
 }
@@ -1566,17 +1300,10 @@ function switchView(id) {
 function positionIndicator(btn) {
   const ind  = document.getElementById('tabIndicator');
   const tabs = document.getElementById('navTabs');
-  
-  // Pegamos as dimensões e coordenadas
   const tr   = tabs.getBoundingClientRect();
   const br   = btn.getBoundingClientRect();
-  
-  // Aplicamos a largura e a altura exatas do botão ativo
   ind.style.width  = br.width  + 'px';
-  ind.style.height = br.height + 'px';
-  
-  // Transladamos nos eixos X e Y
-  ind.style.transform = `translate(${br.left - tr.left - 4}px, ${br.top - tr.top - 4}px)`;
+  ind.style.transform = `translateX(${br.left - tr.left - 4}px)`;
 }
 
 /* Init indicator on load */
