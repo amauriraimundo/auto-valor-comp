@@ -126,7 +126,6 @@ header{
 /* sliding pill behind active tab */
 .tab-indicator{
   position:absolute;top:4px;left:4px;
-  height:calc(100% - 8px);
   border-radius:100px;
   background:var(--accent);
   transition:transform .3s cubic-bezier(.34,1.2,.64,1),width .3s cubic-bezier(.34,1.2,.64,1);
@@ -134,8 +133,19 @@ header{
 }
 .tab-btn{z-index:1}
 
-@media(max-width:480px){
-  .tab-btn{padding:8px 14px;font-size:11px}
+@media(max-width:600px){
+  .nav-tabs-wrap { padding: 24px 20px; }
+  .nav-tabs { 
+    flex-direction: column; 
+    width: 100%; 
+    border-radius: 16px; /* Borda mais quadrada para modo lista */
+  }
+  .tab-btn { 
+    width: 100%; 
+    padding: 12px 14px; 
+    font-size: 11px; 
+  }
+  .tab-indicator { border-radius: 12px; }
 }
 
 /* ═══════════════════════════════════════════════════
@@ -1300,10 +1310,17 @@ function switchView(id) {
 function positionIndicator(btn) {
   const ind  = document.getElementById('tabIndicator');
   const tabs = document.getElementById('navTabs');
+  
+  // Pegamos as dimensões e coordenadas
   const tr   = tabs.getBoundingClientRect();
   const br   = btn.getBoundingClientRect();
+  
+  // Aplicamos a largura e a altura exatas do botão ativo
   ind.style.width  = br.width  + 'px';
-  ind.style.transform = `translateX(${br.left - tr.left - 4}px)`;
+  ind.style.height = br.height + 'px';
+  
+  // Transladamos nos eixos X e Y
+  ind.style.transform = `translate(${br.left - tr.left - 4}px, ${br.top - tr.top - 4}px)`;
 }
 
 /* Init indicator on load */
