@@ -54,7 +54,7 @@ body::before{
 }
 
 /* ═══════════════════════════════════════════════════
-   HEADER
+   HEADER & HERO
 ═══════════════════════════════════════════════════ */
 header{
   position:sticky;top:0;z-index:200;
@@ -71,9 +71,6 @@ header{
   padding:4px 11px;border:1px solid var(--border2);border-radius:100px;color:var(--text3);
 }
 
-/* ═══════════════════════════════════════════════════
-   HERO
-═══════════════════════════════════════════════════ */
 .hero{
   position:relative;z-index:1;
   text-align:center;padding:56px 20px 0;
@@ -106,7 +103,7 @@ header{
   animation:fadeUp .55s .08s ease both;
 }
 .nav-tabs{
-  position: relative; /* Adicione esta linha */
+  position: relative;
   display:inline-flex;
   background:var(--bg2);
   border:1px solid var(--border2);
@@ -122,8 +119,6 @@ header{
   background:transparent;color:var(--text3);white-space:nowrap;
 }
 .tab-btn.active{color:#0b0d12}
-
-/* sliding pill behind active tab */
 .tab-indicator{
   position:absolute;top:4px;left:4px;
   border-radius:100px;
@@ -135,168 +130,127 @@ header{
 
 @media(max-width:600px){
   .nav-tabs-wrap { padding: 24px 20px; }
-  .nav-tabs { 
-    flex-direction: column; 
-    width: 100%; 
-    border-radius: 16px; /* Borda mais quadrada para modo lista */
-  }
-  .tab-btn { 
-    width: 100%; 
-    padding: 12px 14px; 
-    font-size: 11px; 
-  }
+  .nav-tabs { flex-direction: column; width: 100%; border-radius: 16px; }
+  .tab-btn { width: 100%; padding: 12px 14px; font-size: 11px; }
   .tab-indicator { border-radius: 12px; }
 }
 
 /* ═══════════════════════════════════════════════════
-   VIEW CONTAINERS (SPA routing)
+   VIEWS & LAYOUT
 ═══════════════════════════════════════════════════ */
 .view{
   opacity:0;transform:translateY(10px);
-  pointer-events:none;
-  position:absolute;width:100%;
+  pointer-events:none; position:absolute;width:100%;
   transition:opacity .3s ease,transform .3s ease;
 }
 .view.active{
-  opacity:1;transform:translateY(0);
-  pointer-events:auto;
-  position:relative;
+  opacity:1;transform:none;
+  pointer-events:auto; position:relative;
 }
-
 #views-host{position:relative}
-
-/* ═══════════════════════════════════════════════════
-   LAYOUT WRAP
-═══════════════════════════════════════════════════ */
-.wrap{
-  position:relative;z-index:1;
-  max-width:1340px;margin:0 auto;
-  padding:0 20px 100px;
-}
-/* single view: constrained width */
+.wrap{ position:relative;z-index:1; max-width:1340px;margin:0 auto; padding:0 20px 100px; }
 .wrap.narrow{max-width:820px}
-
-/* 2-col inputs for compare view */
-.inputs-grid{
-  display:grid;grid-template-columns:1fr 1fr;
-  gap:20px;margin-bottom:28px;
-}
+.inputs-grid{ display:grid;grid-template-columns:1fr 1fr; gap:20px;margin-bottom:28px; }
 @media(max-width:820px){.inputs-grid{grid-template-columns:1fr}}
 
 /* ═══════════════════════════════════════════════════
-   PANELS (car input cards)
+   PANELS & CARDS
 ═══════════════════════════════════════════════════ */
 .panel{
   background:var(--bg2);border:1px solid var(--border);
   border-radius:var(--r-lg);overflow:hidden;
 }
 .panel-header{
-  padding:18px 22px 14px;
-  border-bottom:1px solid var(--border);
+  padding:18px 22px 14px; border-bottom:1px solid var(--border);
   display:flex;align-items:center;gap:10px;
 }
-.panel-icon{
-  width:28px;height:28px;border-radius:8px;
-  display:flex;align-items:center;justify-content:center;
-  flex-shrink:0;
-}
+.panel-icon{ width:28px;height:28px;border-radius:8px; display:flex;align-items:center;justify-content:center; flex-shrink:0; }
 .panel-icon.single{background:var(--single-dim)}
 .panel-icon svg{width:15px;height:15px}
 
-.car-badge{
-  width:28px;height:28px;border-radius:8px;
-  display:flex;align-items:center;justify-content:center;
-  font-family:var(--font-d);font-size:13px;font-weight:800;flex-shrink:0;
-}
+.car-badge{ width:28px;height:28px;border-radius:8px; display:flex;align-items:center;justify-content:center; font-family:var(--font-d);font-size:13px;font-weight:800;flex-shrink:0; }
 .car-badge.a{background:var(--car-a-dim);color:var(--car-a)}
 .car-badge.b{background:var(--car-b-dim);color:var(--car-b)}
 
-.panel-title{
-  font-family:var(--font-d);font-size:13px;font-weight:700;
-  letter-spacing:.03em;text-transform:uppercase;
-}
+.panel-title{ font-family:var(--font-d);font-size:13px;font-weight:700; letter-spacing:.03em;text-transform:uppercase; }
 .panel-title.single{color:var(--single-c)}
 .panel-title.a{color:var(--car-a)}
 .panel-title.b{color:var(--car-b)}
 
-.profile-tag{
-  margin-left:auto;font-size:10px;font-weight:600;
-  letter-spacing:.06em;text-transform:uppercase;
-  padding:3px 9px;border-radius:100px;
-  border:1px solid var(--border2);color:var(--text3);
-  transition:all .3s;
-}
+.profile-tag{ margin-left:auto;font-size:10px;font-weight:600; letter-spacing:.06em;text-transform:uppercase; padding:3px 9px;border-radius:100px; border:1px solid var(--border2);color:var(--text3); transition:all .3s; }
 .profile-tag.popular{border-color:rgba(77,255,145,.35);color:var(--green)}
 .profile-tag.padrao {border-color:rgba(255,140,66,.35);color:var(--orange)}
 .profile-tag.premium{border-color:rgba(232,255,71,.35);color:var(--accent)}
-
 .panel-body{padding:20px 22px 22px}
 
 /* ═══════════════════════════════════════════════════
-   FORM ELEMENTS
+   FORM ELEMENTS & SHORTCUTS
 ═══════════════════════════════════════════════════ */
 .field{margin-bottom:14px}
 .field:last-of-type{margin-bottom:0}
-.field label{
-  display:block;font-size:10px;font-weight:500;
-  letter-spacing:.07em;text-transform:uppercase;
-  color:var(--text3);margin-bottom:6px;
-}
+.field label{ display:block;font-size:10px;font-weight:500; letter-spacing:.07em;text-transform:uppercase; color:var(--text3);margin-bottom:6px; }
 select,input[type=text],input[type=number]{
-  width:100%;padding:10px 13px;
-  background:var(--bg3);border:1px solid var(--border);
-  border-radius:var(--r);color:var(--text);
-  font-family:var(--font-b);font-size:13px;
+  width:100%;padding:10px 13px; background:var(--bg3);border:1px solid var(--border);
+  border-radius:var(--r);color:var(--text); font-family:var(--font-b);font-size:13px;
   appearance:none;transition:border-color .18s;cursor:pointer;
 }
-input[type=number]::-webkit-inner-spin-button,
-input[type=number]::-webkit-outer-spin-button{-webkit-appearance:none}
+input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer-spin-button{-webkit-appearance:none}
 select:focus,input:focus{outline:none;border-color:rgba(232,255,71,.5)}
-select:disabled{opacity:.35;cursor:not-allowed}
-input.fipe-out{
-  color:var(--accent);font-weight:600;font-size:14px;
-  cursor:default;border-color:rgba(232,255,71,.18);
-  background:rgba(232,255,71,.04);
-}
+select:disabled, input:disabled{opacity:.35;cursor:not-allowed}
+input.fipe-out{ color:var(--accent);font-weight:600;font-size:14px; cursor:default;border-color:rgba(232,255,71,.18); background:rgba(232,255,71,.04); }
 .select-wrap{position:relative}
-.select-wrap::after{
-  content:'';position:absolute;right:12px;top:50%;
-  transform:translateY(-50%);
-  border-left:4px solid transparent;border-right:4px solid transparent;
-  border-top:5px solid var(--text3);pointer-events:none;
-}
+.select-wrap::after{ content:'';position:absolute;right:12px;top:50%; transform:translateY(-50%); border-left:4px solid transparent;border-right:4px solid transparent; border-top:5px solid var(--text3);pointer-events:none; }
 .field-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 
-/* KM compound input */
-.km-wrap{
-  display:grid;grid-template-columns:1fr auto;
-  align-items:center;
-  background:var(--bg3);border:1px solid var(--border);
-  border-radius:var(--r);overflow:hidden;
-  transition:border-color .18s;
-}
+/* Atalhos Marcas */
+.shortcuts-row { display: flex; align-items: center; gap: 6px; margin-top: 6px; flex-wrap: wrap; }
+.shortcuts-lbl { font-size: 9px; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; color: var(--text3); margin-right: 2px; }
+.shortcut-pill { font-size: 10px; font-weight: 700; background: var(--bg3); border: 1px solid var(--border); color: var(--text2); padding: 3px 8px; border-radius: 100px; cursor: pointer; transition: all 0.2s; }
+.shortcut-pill:hover { border-color: var(--accent); color: var(--accent); }
+
+/* KM wrap */
+.km-wrap{ display:grid;grid-template-columns:1fr auto; align-items:center; background:var(--bg3);border:1px solid var(--border); border-radius:var(--r);overflow:hidden; transition:border-color .18s; }
 .km-wrap:focus-within{border-color:rgba(232,255,71,.5)}
-.km-wrap input{
-  border:none;border-radius:0;background:transparent;
-  padding:10px 13px;width:100%;
-}
+.km-wrap input{ border:none;border-radius:0;background:transparent; padding:10px 13px;width:100%; }
 .km-wrap input:focus{outline:none}
-.km-unit{
-  padding:0 12px;font-size:10px;font-weight:600;
-  letter-spacing:.05em;text-transform:uppercase;
-  color:var(--text3);border-left:1px solid var(--border);
-  height:100%;display:flex;align-items:center;white-space:nowrap;
-}
+.km-unit{ padding:0 12px;font-size:10px;font-weight:600; letter-spacing:.05em;text-transform:uppercase; color:var(--text3);border-left:1px solid var(--border); height:100%;display:flex;align-items:center;white-space:nowrap; }
 
 /* ═══════════════════════════════════════════════════
-   BUTTONS & LOADING
+   LEAD WALL (TRAVA) & LGPD
 ═══════════════════════════════════════════════════ */
-.btn{
-  width:100%;padding:12px;border:none;border-radius:var(--r);
-  font-family:var(--font-d);font-size:13px;font-weight:700;
-  letter-spacing:.05em;text-transform:uppercase;cursor:pointer;
-  transition:filter .18s,transform .1s;margin-top:10px;
+.premium-wrapper { position: relative; margin-top: 24px; }
+.premium-content { transition: filter 0.3s ease; }
+.premium-content.locked { filter: blur(8px); pointer-events: none; user-select: none; }
+.lead-wall {
+  position: absolute; inset: 0; z-index: 10;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  background: rgba(11, 13, 18, 0.4); border-radius: var(--r);
+  opacity: 0; pointer-events: none; transition: opacity 0.3s;
 }
+.lead-wall.show { opacity: 1; pointer-events: auto; }
+.lead-card {
+  background: var(--bg2); border: 1px solid var(--accent);
+  padding: 28px 24px; border-radius: var(--r-lg);
+  width: 100%; max-width: 380px; text-align: center;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+}
+.lead-card h3 { font-family: var(--font-d); font-size: 18px; color: var(--text); margin-bottom: 8px; }
+.lead-card p { font-size: 12px; color: var(--text2); margin-bottom: 20px; line-height: 1.5; }
+.lead-input {
+  width: 100%; padding: 12px; background: var(--bg);
+  border: 1px solid var(--border); border-radius: var(--r);
+  color: var(--text); margin-bottom: 12px;
+  font-family: var(--font-b); font-size: 13px;
+}
+.lead-input:focus { outline: none; border-color: var(--accent); }
+
+/* LGPD Checkbox */
+.lead-consent { display: flex; align-items: flex-start; gap: 8px; margin-bottom: 16px; text-align: left; }
+.lead-consent input[type="checkbox"] { margin-top: 2px; cursor: pointer; accent-color: var(--accent); }
+.lead-consent label { font-size: 10px; color: var(--text3); line-height: 1.4; cursor: pointer; }
+
+/* Botões */
+.btn{ width:100%;padding:12px;border:none;border-radius:var(--r); font-family:var(--font-d);font-size:13px;font-weight:700; letter-spacing:.05em;text-transform:uppercase;cursor:pointer; transition:filter .18s,transform .1s;margin-top:10px; }
 .btn:hover{filter:brightness(1.1)}
 .btn:active{transform:scale(.98)}
 .btn:disabled{opacity:.35;cursor:not-allowed;transform:none;filter:none}
@@ -304,103 +258,57 @@ input.fipe-out{
 .btn.a{background:var(--car-a);color:#0b0d12}
 .btn.b{background:var(--car-b);color:#0b0d12}
 
-.loading-row{
-  display:none;align-items:center;gap:8px;
-  margin-top:10px;font-size:12px;color:var(--text2);
-}
-.spinner{
-  width:14px;height:14px;flex-shrink:0;
-  border:2px solid var(--border2);border-radius:50%;
-  animation:spin .7s linear infinite;
-}
+.btn-lead { background: var(--accent); color: #0b0d12; font-weight: 800; width: 100%; padding: 14px; border-radius: var(--r); border: none; cursor: pointer; font-family: var(--font-d); text-transform: uppercase; letter-spacing: .05em; transition: all 0.2s; }
+.btn-lead:hover { filter: brightness(1.1); }
+.btn-lead:disabled { opacity: 0.5; filter: grayscale(1); cursor: not-allowed; }
+
+/* ═══════════════════════════════════════════════════
+   LOADING & RESULTS UI
+═══════════════════════════════════════════════════ */
+.loading-row{ display:none;flex-direction:column;gap:8px; margin-top:12px; }
+.loading-top{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--text2)}
+.spinner{ width:14px;height:14px;flex-shrink:0; border:2px solid var(--border2);border-radius:50%; animation:spin .7s linear infinite; }
 .spinner.single{border-top-color:var(--single-c)}
 .spinner.a{border-top-color:var(--car-a)}
 .spinner.b{border-top-color:var(--car-b)}
 @keyframes spin{to{transform:rotate(360deg)}}
+.loading-track{ height:3px;border-radius:2px; background:var(--bg4);overflow:hidden; }
+.loading-bar{ height:100%;border-radius:2px;width:0%; transition:width .6s ease; }
+.loading-bar.single{background:var(--single-c)}
+.loading-bar.a{background:var(--car-a)}
+.loading-bar.b{background:var(--car-b)}
 
-/* ═══════════════════════════════════════════════════
-   RESULTS SHELL
-═══════════════════════════════════════════════════ */
-.results-shell{
-  background:var(--bg2);border:1px solid var(--border);
-  border-radius:var(--r-lg);overflow:hidden;
-}
-.results-header{
-  padding:18px 24px 14px;border-bottom:1px solid var(--border);
-  display:flex;align-items:center;gap:10px;
-}
-.results-title{
-  font-family:var(--font-d);font-size:13px;font-weight:700;
-  letter-spacing:.03em;text-transform:uppercase;color:var(--text);
-}
+.rate-badge{ display:inline-flex;align-items:center;gap:5px; font-size:10px;font-weight:600;letter-spacing:.05em;text-transform:uppercase; padding:3px 8px;border-radius:100px;margin-top:8px; }
+
+.results-shell{ background:var(--bg2);border:1px solid var(--border); border-radius:var(--r-lg);overflow:hidden; }
+.results-header{ padding:18px 24px 14px;border-bottom:1px solid var(--border); display:flex;align-items:center;gap:10px; }
+.results-title{ font-family:var(--font-d);font-size:13px;font-weight:700; letter-spacing:.03em;text-transform:uppercase;color:var(--text); }
 .results-body{padding:24px}
-
-/* ═══════════════════════════════════════════════════
-   EMPTY STATE
-═══════════════════════════════════════════════════ */
-.empty-state{
-  display:flex;flex-direction:column;
-  align-items:center;justify-content:center;
-  padding:56px 24px;text-align:center;gap:10px;
-}
-.empty-icon{
-  width:58px;height:58px;border-radius:50%;
-  background:var(--bg3);border:1px solid var(--border);
-  display:flex;align-items:center;justify-content:center;margin-bottom:4px;
-}
+.empty-state{ display:flex;flex-direction:column; align-items:center;justify-content:center; padding:56px 24px;text-align:center;gap:10px; }
+.empty-icon{ width:58px;height:58px;border-radius:50%; background:var(--bg3);border:1px solid var(--border); display:flex;align-items:center;justify-content:center;margin-bottom:4px; }
 .empty-icon svg{width:24px;height:24px;opacity:.25}
 .empty-title{font-family:var(--font-d);font-size:16px;font-weight:700;color:var(--text2)}
 .empty-sub{font-size:12px;color:var(--text3);max-width:250px;line-height:1.65}
 
-/* ═══════════════════════════════════════════════════
-   SLIDER
-═══════════════════════════════════════════════════ */
-.slider-block{
-  background:var(--bg3);border:1px solid var(--border);
-  border-radius:var(--r);padding:16px 18px;margin-bottom:22px;
-}
+/* Metrics & Charts */
+.slider-block{ background:var(--bg3);border:1px solid var(--border); border-radius:var(--r);padding:16px 18px;margin-bottom:22px; }
 .slider-top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:12px}
 .slider-lbl{font-size:10px;font-weight:500;letter-spacing:.07em;text-transform:uppercase;color:var(--text3)}
 .slider-big{font-family:var(--font-d);font-size:30px;font-weight:800;color:var(--accent);letter-spacing:-.03em}
-input[type=range]{
-  -webkit-appearance:none;width:100%;height:4px;
-  background:var(--bg);border:1px solid var(--border);
-  border-radius:2px;outline:none;cursor:pointer;
-}
-input[type=range]::-webkit-slider-thumb{
-  -webkit-appearance:none;width:20px;height:20px;border-radius:50%;
-  background:var(--accent);border:3px solid var(--bg2);
-  box-shadow:0 0 0 1px rgba(232,255,71,.5);cursor:pointer;transition:transform .15s;
-}
+input[type=range]{ -webkit-appearance:none;width:100%;height:4px; background:var(--bg);border:1px solid var(--border); border-radius:2px;outline:none;cursor:pointer; }
+input[type=range]::-webkit-slider-thumb{ -webkit-appearance:none;width:20px;height:20px;border-radius:50%; background:var(--accent);border:3px solid var(--bg2); box-shadow:0 0 0 1px rgba(232,255,71,.5);cursor:pointer;transition:transform .15s; }
 input[type=range]::-webkit-slider-thumb:hover{transform:scale(1.2)}
 .slider-ticks{display:flex;justify-content:space-between;margin-top:6px}
 .slider-tick{font-size:10px;color:var(--text3)}
 
-/* ═══════════════════════════════════════════════════
-   METRICS — single view (3 cards row)
-═══════════════════════════════════════════════════ */
-.metrics-row{
-  display:grid;grid-template-columns:repeat(3,1fr);
-  gap:12px;margin-bottom:22px;
-}
+.metrics-row{ display:grid;grid-template-columns:repeat(3,1fr); gap:12px;margin-bottom:22px; }
 @media(max-width:600px){.metrics-row{grid-template-columns:1fr 1fr}}
-
-/* compare view */
-.compare-grid{
-  display:grid;grid-template-columns:1fr auto 1fr;
-  gap:16px;align-items:start;margin-bottom:24px;
-}
+.compare-grid{ display:grid;grid-template-columns:1fr auto 1fr; gap:16px;align-items:start;margin-bottom:24px; }
 .compare-col{display:flex;flex-direction:column;gap:10px}
 .compare-divider{width:1px;background:var(--border);margin:0 4px}
-@media(max-width:600px){
-  .compare-grid{grid-template-columns:1fr}
-  .compare-divider{display:none}
-}
+@media(max-width:600px){ .compare-grid{grid-template-columns:1fr}; .compare-divider{display:none} }
 
-.metric-card{
-  background:var(--bg3);border:1px solid var(--border);
-  border-radius:var(--r);padding:14px;
-}
+.metric-card{ background:var(--bg3);border:1px solid var(--border); border-radius:var(--r);padding:14px; }
 .metric-card.s{border-left:2px solid var(--single-c)}
 .metric-card.a{border-left:2px solid var(--car-a)}
 .metric-card.b{border-left:2px solid var(--car-b)}
@@ -410,53 +318,29 @@ input[type=range]::-webkit-slider-thumb:hover{transform:scale(1.2)}
 .mc-val.warn{color:var(--orange)}
 .mc-val.danger{color:var(--red)}
 .mc-sub{font-size:11px;color:var(--text3);margin-top:3px}
-.winner-badge{
-  display:none;font-size:10px;font-weight:700;letter-spacing:.07em;
-  text-transform:uppercase;color:#0b0d12;background:var(--green);
-  padding:2px 8px;border-radius:4px;margin-top:6px;
-}
+.winner-badge{ display:none;font-size:10px;font-weight:700;letter-spacing:.07em; text-transform:uppercase;color:#0b0d12;background:var(--green); padding:2px 8px;border-radius:4px;margin-top:6px; }
 .winner-badge.show{display:inline-block}
 
-/* ═══════════════════════════════════════════════════
-   CHART
-═══════════════════════════════════════════════════ */
 .chart-block{margin-bottom:24px}
-.sec-title{
-  font-size:10px;font-weight:500;letter-spacing:.07em;
-  text-transform:uppercase;color:var(--text3);margin-bottom:12px;
-}
+.sec-title{ font-size:10px;font-weight:500;letter-spacing:.07em; text-transform:uppercase;color:var(--text3);margin-bottom:12px; }
 .chart-legend{display:flex;gap:18px;margin-bottom:12px;flex-wrap:wrap}
 .legend-item{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--text2)}
 .legend-dot{width:10px;height:10px;border-radius:50%;display:inline-block;flex-shrink:0}
 .chart-wrap{position:relative;width:100%;height:230px}
 
-/* ═══════════════════════════════════════════════════
-   BARS
-═══════════════════════════════════════════════════ */
 .bars-section{margin-bottom:24px}
-/* compare: 2 cols */
 .bars-compare{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:24px}
 @media(max-width:640px){.bars-compare{grid-template-columns:1fr}}
-
 .bars-col-title{font-size:10px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;margin-bottom:10px}
 .bars-col-title.a{color:var(--car-a)}
 .bars-col-title.b{color:var(--car-b)}
 .bars-col-title.s{color:var(--single-c)}
-
 .bar-row{display:flex;align-items:center;gap:8px;margin-bottom:7px}
 .bar-year{min-width:38px;font-family:var(--font-d);font-size:11px;font-weight:600;color:var(--text3)}
 .bar-track{flex:1;height:20px;background:var(--bg4);border-radius:4px;overflow:hidden;border:1px solid var(--border)}
-.bar-fill{
-  height:100%;border-radius:4px;
-  display:flex;align-items:center;padding-left:7px;
-  font-size:10px;font-weight:700;color:rgba(0,0,0,.65);
-  transition:width .55s cubic-bezier(.34,1.56,.64,1);
-}
+.bar-fill{ height:100%;border-radius:4px; display:flex;align-items:center;padding-left:7px; font-size:10px;font-weight:700;color:rgba(0,0,0,.65); transition:width .55s cubic-bezier(.34,1.56,.64,1); }
 .bar-loss{min-width:78px;text-align:right;font-size:11px;color:var(--text3)}
 
-/* ═══════════════════════════════════════════════════
-   INSIGHTS
-═══════════════════════════════════════════════════ */
 .insights-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
 @media(max-width:640px){.insights-grid{grid-template-columns:1fr}}
 .insight-box{border-radius:var(--r);padding:14px 16px}
@@ -469,42 +353,68 @@ input[type=range]::-webkit-slider-thumb:hover{transform:scale(1.2)}
 .insight-lbl.b{color:var(--car-b)}
 .insight-txt{font-size:12px;line-height:1.8;color:var(--text2)}
 
-/* ═══════════════════════════════════════════════════
-   FOOTER
-═══════════════════════════════════════════════════ */
-footer{
-  position:relative;z-index:1;text-align:center;
-  padding:22px 20px 40px;border-top:1px solid var(--border);
-  font-size:11px;color:var(--text3);
-}
+footer{ position:relative;z-index:1;text-align:center; padding:22px 20px 40px;border-top:1px solid var(--border); font-size:11px;color:var(--text3); }
 footer a{color:var(--accent);text-decoration:none}
 
-/* ═══════════════════════════════════════════════════
-   ANIMATIONS
-═══════════════════════════════════════════════════ */
-@keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
-
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
 ::-webkit-scrollbar{width:5px}
 ::-webkit-scrollbar-track{background:var(--bg)}
 ::-webkit-scrollbar-thumb{background:var(--border2);border-radius:3px}
+
+/* ═══════════════════════════════════════════════════
+   CUSTOM AUTOCOMPLETE (SUBSTITUTO DO DATALIST NATIVO)
+═══════════════════════════════════════════════════ */
+.autocomplete-wrap {
+  position: relative;
+}
+.autocomplete-list {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  max-height: 250px;
+  overflow-y: auto;
+  z-index: 999;
+  display: none;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+}
+.autocomplete-list.show {
+  display: block;
+}
+.autocomplete-item {
+  padding: 10px 13px;
+  font-size: 12px;
+  color: var(--text2);
+  cursor: pointer;
+  border-bottom: 1px solid var(--border);
+  transition: background 0.2s, color 0.2s;
+}
+.autocomplete-item:last-child {
+  border-bottom: none;
+}
+.autocomplete-item:hover {
+  background: var(--bg4);
+  color: var(--accent);
+}
+
 </style>
 </head>
 <body>
 
-<!-- ══════════ HEADER ══════════ -->
 <header>
   <div class="logo">Auto<span>Valor</span></div>
   <span class="header-pill">FIPE Tempo Real</span>
 </header>
 
-<!-- ══════════ HERO ══════════ -->
 <div class="hero">
   <span class="hero-tag">Simulador Automotivo</span>
   <h1>Descubra quanto seu carro<br><em>vai valer</em> no futuro</h1>
   <p>Consulte preços FIPE em tempo real e projete a desvalorização com decaimento composto e fator de quilometragem.</p>
 </div>
 
-<!-- ══════════ NAV TABS ══════════ -->
 <div class="nav-tabs-wrap">
   <div class="nav-tabs" id="navTabs">
     <div class="tab-indicator" id="tabIndicator"></div>
@@ -519,7 +429,6 @@ footer a{color:var(--accent);text-decoration:none}
   </div>
 </div>
 
-<!-- ══════════ VIEWS HOST ══════════ -->
 <div id="views-host">
 
   <!-- ╔══════════════════════════════════════╗
@@ -527,21 +436,13 @@ footer a{color:var(--accent);text-decoration:none}
        ╚══════════════════════════════════════╝ -->
   <div class="view active" id="view-single">
     <div class="wrap narrow">
-
-      <!-- Input panel -->
       <div class="panel" style="margin-bottom:24px;animation:fadeUp .5s ease both">
         <div class="panel-header">
-          <div class="panel-icon single">
-            <svg viewBox="0 0 24 24" fill="none" stroke="var(--single-c)" stroke-width="2" stroke-linecap="round">
-              <path d="M3 17l2-5h14l2 5M5 17H3a1 1 0 00-1 1v1h20v-1a1 1 0 00-1-1h-2"/>
-              <circle cx="7.5" cy="17" r="1.5"/><circle cx="16.5" cy="17" r="1.5"/>
-            </svg>
-          </div>
+          <div class="panel-icon single"><svg viewBox="0 0 24 24" fill="none" stroke="var(--single-c)" stroke-width="2" stroke-linecap="round"><path d="M3 17l2-5h14l2 5M5 17H3a1 1 0 00-1 1v1h20v-1a1 1 0 00-1-1h-2"/><circle cx="7.5" cy="17" r="1.5"/><circle cx="16.5" cy="17" r="1.5"/></svg></div>
           <span class="panel-title single">Consulta FIPE</span>
           <span class="profile-tag" id="profileTag-single">—</span>
         </div>
         <div class="panel-body">
-
           <div class="field">
             <label>Tipo de veículo</label>
             <div class="select-wrap"><select id="tipo-single"></select></div>
@@ -549,102 +450,94 @@ footer a{color:var(--accent);text-decoration:none}
           <div class="field">
             <label>Marca</label>
             <div class="select-wrap"><select id="marca-single"><option value="">Carregando...</option></select></div>
+            <div class="shortcuts-row">
+              <span class="shortcuts-lbl">Populares:</span>
+              <span class="shortcut-pill" onclick="aplicarAtalhoMarca('single', 'BYD')">BYD</span>
+              <span class="shortcut-pill" onclick="aplicarAtalhoMarca('single', 'CHEVROLET')">GM</span>
+              <span class="shortcut-pill" onclick="aplicarAtalhoMarca('single', 'VOLKSWAGEN')">VW</span>
+              <span class="shortcut-pill" onclick="aplicarAtalhoMarca('single', 'FIAT')">FIAT</span>
+              <span class="shortcut-pill" onclick="aplicarAtalhoMarca('single', 'HONDA')">HONDA</span>
+            </div>
           </div>
-          <div class="field">
+          <div class="field autocomplete-wrap">
             <label>Modelo</label>
-            <div class="select-wrap"><select id="modelo-single" disabled><option value="">Selecione a marca</option></select></div>
+            <input type="text" id="modelo-single-input" placeholder="Digite ou selecione a marca primeiro..." disabled autocomplete="off" />
+            <div id="dl-modelo-single" class="autocomplete-list"></div>
+            <select id="modelo-single" style="display:none;"></select>
           </div>
           <div class="field-row">
-            <div class="field">
-              <label>Ano</label>
-              <div class="select-wrap"><select id="ano-single" disabled><option value="">Selecione o modelo</option></select></div>
-            </div>
-            <div class="field">
-              <label>Preço FIPE</label>
-              <input type="text" id="fipe-single" class="fipe-out" readonly placeholder="—"/>
-            </div>
+            <div class="field"><label>Ano</label><div class="select-wrap"><select id="ano-single" disabled><option value="">Selecione o modelo</option></select></div></div>
+            <div class="field"><label>Preço FIPE</label><input type="text" id="fipe-single" class="fipe-out" readonly placeholder="—"/></div>
           </div>
           <div class="field">
             <label>Estimativa KM / Ano</label>
-            <div class="km-wrap">
-              <input type="number" id="km-single" value="12000" min="1000" max="200000" step="1000"/>
-              <span class="km-unit">km / ano</span>
-            </div>
+            <div class="km-wrap"><input type="number" id="km-single" value="12000" min="0" max="200000" step="1000"/><span class="km-unit">km / ano</span></div>
           </div>
-
           <button class="btn single" id="btn-single" onclick="carSingle.consultar()">Consultar Tabela FIPE</button>
           <div class="loading-row" id="loading-single">
-            <div class="spinner single"></div>
-            <span id="loadingMsg-single">Buscando dados...</span>
+            <div class="loading-top"><div class="spinner single"></div><span id="loadingMsg-single">Consultando...</span></div>
+            <div class="loading-track"><div class="loading-bar single" id="loadingBar-single"></div></div>
           </div>
-
         </div>
       </div>
 
-      <!-- Results shell (single) -->
       <div class="results-shell" style="animation:fadeUp .5s .08s ease both">
-        <div class="results-header">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--single-c)" stroke-width="2" stroke-linecap="round">
-            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
-          </svg>
-          <span class="results-title">Projeção de Desvalorização</span>
-        </div>
+        <div class="results-header"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--single-c)" stroke-width="2" stroke-linecap="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg><span class="results-title">Projeção de Desvalorização</span></div>
         <div class="results-body">
-
-          <!-- Empty -->
           <div class="empty-state" id="emptyS">
-            <div class="empty-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5">
-                <path d="M3 17l2-5h14l2 5M5 17H3a1 1 0 00-1 1v1h20v-1a1 1 0 00-1-1h-2"/>
-                <circle cx="7.5" cy="17" r="1.5"/><circle cx="16.5" cy="17" r="1.5"/>
-              </svg>
-            </div>
-            <p class="empty-title">Nenhum veículo consultado</p>
-            <p class="empty-sub">Selecione marca, modelo e ano para ver a projeção.</p>
+            <div class="empty-icon"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><path d="M3 17l2-5h14l2 5M5 17H3a1 1 0 00-1 1v1h20v-1a1 1 0 00-1-1h-2"/><circle cx="7.5" cy="17" r="1.5"/><circle cx="16.5" cy="17" r="1.5"/></svg></div>
+            <p class="empty-title">Nenhum veículo consultado</p><p class="empty-sub">Selecione marca, modelo e ano para ver a projeção.</p>
           </div>
-
-          <!-- Active results (single) -->
+          
           <div id="activeS" style="display:none">
-
-            <div class="slider-block">
-              <div class="slider-top">
-                <span class="slider-lbl">Anos de uso projetados</span>
-                <span class="slider-big" id="anosDisplay-single">1 ano</span>
-              </div>
-              <input type="range" id="anosSlider-single" min="1" max="15" value="1" step="1" oninput="renderSingle()"/>
-              <div class="slider-ticks">
-                <span class="slider-tick">1</span><span class="slider-tick">3</span>
-                <span class="slider-tick">5</span><span class="slider-tick">7</span>
-                <span class="slider-tick">9</span><span class="slider-tick">11</span>
-                <span class="slider-tick">13</span><span class="slider-tick">15</span>
-              </div>
-            </div>
-
             <div class="metrics-row" id="metricsS"></div>
 
-            <div class="chart-block">
-              <div class="sec-title">Curva de valor estimado — 15 anos</div>
-              <div class="chart-legend" id="legendS"></div>
-              <div class="chart-wrap"><canvas id="chartSingle" role="img" aria-label="Gráfico de desvalorização do veículo"></canvas></div>
-            </div>
+            <div class="premium-wrapper">
+              <div class="premium-content locked" id="premium-content-single">
+                <div class="slider-block">
+                  <div class="slider-top"><span class="slider-lbl">Anos de uso projetados</span><span class="slider-big" id="anosDisplay-single">1 ano</span></div>
+                  <input type="range" id="anosSlider-single" min="1" max="5" value="1" step="1" oninput="renderSingle()"/>
+                  <div class="slider-ticks"><span class="slider-tick">1</span><span class="slider-tick">2</span><span class="slider-tick">3</span><span class="slider-tick">4</span><span class="slider-tick">5</span></div>
+                </div>
+                <div class="chart-block">
+                  <div class="sec-title">Curva de valor estimado — 5 anos</div>
+                  <div class="chart-legend" id="legendS"></div>
+                  <div class="chart-wrap"><canvas id="chartSingle" role="img" aria-label="Gráfico de desvalorização do veículo"></canvas></div>
+                </div>
+                <div class="bars-section">
+                  <div class="sec-title">Valor residual por ano</div>
+                  <div class="bars-col-title s" id="barsTitleS"></div>
+                  <div id="barsS"></div>
+                </div>
+                <div class="insight-box s"><p class="insight-lbl s">Análise do veículo</p><p class="insight-txt" id="insightS">—</p></div>
+              </div>
 
-            <div class="bars-section">
-              <div class="sec-title">Valor residual por ano</div>
-              <div class="bars-col-title s" id="barsTitleS"></div>
-              <div id="barsS"></div>
-            </div>
-
-            <div class="insight-box s">
-              <p class="insight-lbl s">Análise do veículo</p>
-              <p class="insight-txt" id="insightS">—</p>
-            </div>
-
-          </div>
+              <!-- Trava Single -->
+              <div class="lead-wall show" id="lead-wall-single">
+                <div class="lead-card">
+                  <h3>Desbloqueie a Análise</h3>
+                  <p>Insira seus dados para liberar o gráfico de 5 anos e o relatório completo.</p>
+                  <input type="text" id="lead-nome-single" class="lead-input" placeholder="Seu Nome Completo">
+                  <input type="tel" id="lead-whats-single" class="lead-input" placeholder="WhatsApp (com DDD)">
+                  <select id="lead-intencao-single" class="lead-input">
+                    <option value="">Pretende trocar de carro?</option>
+                    <option value="sim_imediato">Sim, nos próximos 30 dias</option>
+                    <option value="sim_futuro">Sim, nos próximos meses</option>
+                    <option value="nao">Estou apenas pesquisando</option>
+                  </select>
+                  <div class="lead-consent">
+                    <input type="checkbox" id="lead-lgpd-single" onchange="document.getElementById('btn-liberar-single').disabled = !this.checked">
+                    <label for="lead-lgpd-single">Autorizo o uso dos meus dados para receber contato comercial com propostas e avaliações, conforme a LGPD.</label>
+                  </div>
+                  <button id="btn-liberar-single" class="btn-lead" onclick="destravarLead('single')" disabled>Liberar Gráfico</button>
+                </div>
+              </div>
+            </div><!-- /premium-wrapper -->
+          </div><!-- /activeS -->
         </div>
       </div>
-
-    </div><!-- /wrap narrow -->
-  </div><!-- /view-single -->
+    </div>
+  </div>
 
 
   <!-- ╔══════════════════════════════════════╗
@@ -652,186 +545,158 @@ footer a{color:var(--accent);text-decoration:none}
        ╚══════════════════════════════════════╝ -->
   <div class="view" id="view-compare">
     <div class="wrap">
-
-      <!-- 2-col inputs -->
       <div class="inputs-grid">
 
         <!-- CARRO A -->
         <div class="panel" style="animation:fadeUp .5s ease both">
-          <div class="panel-header">
-            <div class="car-badge a">A</div>
-            <span class="panel-title a">Carro A</span>
-            <span class="profile-tag" id="profileTag-a">—</span>
-          </div>
+          <div class="panel-header"><div class="car-badge a">A</div><span class="panel-title a">Carro A</span><span class="profile-tag" id="profileTag-a">—</span></div>
           <div class="panel-body">
-            <div class="field">
-              <label>Tipo de veículo</label>
-              <div class="select-wrap"><select id="tipo-a"></select></div>
-            </div>
+            <div class="field"><label>Tipo</label><div class="select-wrap"><select id="tipo-a"></select></div></div>
             <div class="field">
               <label>Marca</label>
               <div class="select-wrap"><select id="marca-a"><option value="">Carregando...</option></select></div>
+              <div class="shortcuts-row">
+                <span class="shortcuts-lbl">Populares:</span>
+                <span class="shortcut-pill" onclick="aplicarAtalhoMarca('a', 'BYD')">BYD</span>
+                <span class="shortcut-pill" onclick="aplicarAtalhoMarca('a', 'CHEVROLET')">GM</span>
+                <span class="shortcut-pill" onclick="aplicarAtalhoMarca('a', 'VOLKSWAGEN')">VW</span>
+                <span class="shortcut-pill" onclick="aplicarAtalhoMarca('a', 'FIAT')">FIAT</span>
+                <span class="shortcut-pill" onclick="aplicarAtalhoMarca('a', 'HONDA')">HONDA</span>
+              </div>
             </div>
-            <div class="field">
+            <div class="field autocomplete-wrap">
               <label>Modelo</label>
-              <div class="select-wrap"><select id="modelo-a" disabled><option value="">Selecione a marca</option></select></div>
+              <input type="text" id="modelo-a-input" placeholder="Digite ou selecione a marca primeiro..." disabled autocomplete="off" />
+              <div id="dl-modelo-a" class="autocomplete-list"></div>
+              <select id="modelo-a" style="display:none;"></select>
             </div>
             <div class="field-row">
-              <div class="field">
-                <label>Ano</label>
-                <div class="select-wrap"><select id="ano-a" disabled><option value="">Selecione o modelo</option></select></div>
-              </div>
-              <div class="field">
-                <label>Preço FIPE</label>
-                <input type="text" id="fipe-a" class="fipe-out" readonly placeholder="—"/>
-              </div>
+              <div class="field"><label>Ano</label><div class="select-wrap"><select id="ano-a" disabled><option value="">Selecione o modelo</option></select></div></div>
+              <div class="field"><label>FIPE</label><input type="text" id="fipe-a" class="fipe-out" readonly placeholder="—"/></div>
             </div>
             <div class="field">
               <label>Estimativa KM / Ano</label>
-              <div class="km-wrap">
-                <input type="number" id="km-a" value="12000" min="1000" max="200000" step="1000"/>
-                <span class="km-unit">km / ano</span>
-              </div>
+              <div class="km-wrap"><input type="number" id="km-a" value="12000" min="0" step="1000"/><span class="km-unit">km / ano</span></div>
             </div>
             <button class="btn a" id="btn-a" onclick="carA.consultar()">Consultar FIPE</button>
             <div class="loading-row" id="loading-a">
-              <div class="spinner a"></div>
-              <span id="loadingMsg-a">Buscando...</span>
+              <div class="loading-top"><div class="spinner a"></div><span id="loadingMsg-a">Consultando...</span></div>
+              <div class="loading-track"><div class="loading-bar a" id="loadingBar-a"></div></div>
             </div>
           </div>
         </div>
 
         <!-- CARRO B -->
         <div class="panel" style="animation:fadeUp .5s .08s ease both">
-          <div class="panel-header">
-            <div class="car-badge b">B</div>
-            <span class="panel-title b">Carro B</span>
-            <span class="profile-tag" id="profileTag-b">—</span>
-          </div>
+          <div class="panel-header"><div class="car-badge b">B</div><span class="panel-title b">Carro B</span><span class="profile-tag" id="profileTag-b">—</span></div>
           <div class="panel-body">
-            <div class="field">
-              <label>Tipo de veículo</label>
-              <div class="select-wrap"><select id="tipo-b"></select></div>
-            </div>
+            <div class="field"><label>Tipo</label><div class="select-wrap"><select id="tipo-b"></select></div></div>
             <div class="field">
               <label>Marca</label>
               <div class="select-wrap"><select id="marca-b"><option value="">Carregando...</option></select></div>
+              <div class="shortcuts-row">
+                <span class="shortcuts-lbl">Populares:</span>
+                <span class="shortcut-pill" onclick="aplicarAtalhoMarca('b', 'BYD')">BYD</span>
+                <span class="shortcut-pill" onclick="aplicarAtalhoMarca('b', 'CHEVROLET')">GM</span>
+                <span class="shortcut-pill" onclick="aplicarAtalhoMarca('b', 'VOLKSWAGEN')">VW</span>
+                <span class="shortcut-pill" onclick="aplicarAtalhoMarca('b', 'FIAT')">FIAT</span>
+                <span class="shortcut-pill" onclick="aplicarAtalhoMarca('b', 'HONDA')">HONDA</span>
+              </div>
             </div>
-            <div class="field">
+            <div class="field autocomplete-wrap">
               <label>Modelo</label>
-              <div class="select-wrap"><select id="modelo-b" disabled><option value="">Selecione a marca</option></select></div>
+              <input type="text" id="modelo-b-input" placeholder="Digite ou selecione a marca primeiro..." disabled autocomplete="off" />
+              <div id="dl-modelo-b" class="autocomplete-list"></div>
+              <select id="modelo-b" style="display:none;"></select>
             </div>
             <div class="field-row">
-              <div class="field">
-                <label>Ano</label>
-                <div class="select-wrap"><select id="ano-b" disabled><option value="">Selecione o modelo</option></select></div>
-              </div>
-              <div class="field">
-                <label>Preço FIPE</label>
-                <input type="text" id="fipe-b" class="fipe-out" readonly placeholder="—"/>
-              </div>
+              <div class="field"><label>Ano</label><div class="select-wrap"><select id="ano-b" disabled><option value="">Selecione o modelo</option></select></div></div>
+              <div class="field"><label>FIPE</label><input type="text" id="fipe-b" class="fipe-out" readonly placeholder="—"/></div>
             </div>
             <div class="field">
               <label>Estimativa KM / Ano</label>
-              <div class="km-wrap">
-                <input type="number" id="km-b" value="12000" min="1000" max="200000" step="1000"/>
-                <span class="km-unit">km / ano</span>
-              </div>
+              <div class="km-wrap"><input type="number" id="km-b" value="12000" min="0" step="1000"/><span class="km-unit">km / ano</span></div>
             </div>
             <button class="btn b" id="btn-b" onclick="carB.consultar()">Consultar FIPE</button>
             <div class="loading-row" id="loading-b">
-              <div class="spinner b"></div>
-              <span id="loadingMsg-b">Buscando...</span>
+              <div class="loading-top"><div class="spinner b"></div><span id="loadingMsg-b">Consultando...</span></div>
+              <div class="loading-track"><div class="loading-bar b" id="loadingBar-b"></div></div>
             </div>
           </div>
         </div>
+      </div>
 
-      </div><!-- /inputs-grid -->
-
-      <!-- Results shell (compare) -->
       <div class="results-shell" style="animation:fadeUp .5s .14s ease both">
-        <div class="results-header">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round">
-            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
-          </svg>
-          <span class="results-title">Comparação de Desvalorização</span>
-        </div>
+        <div class="results-header"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg><span class="results-title">Comparação de Desvalorização</span></div>
         <div class="results-body">
-
-          <!-- Empty (compare) -->
           <div class="empty-state" id="emptyC">
-            <div class="empty-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5">
-                <rect x="3" y="3" width="7" height="18" rx="1"/><rect x="14" y="3" width="7" height="18" rx="1"/>
-              </svg>
-            </div>
-            <p class="empty-title">Aguardando consulta</p>
-            <p class="empty-sub">Consulte ao menos um veículo para ver a comparação.</p>
+            <div class="empty-icon"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><rect x="3" y="3" width="7" height="18" rx="1"/><rect x="14" y="3" width="7" height="18" rx="1"/></svg></div>
+            <p class="empty-title">Aguardando consulta</p><p class="empty-sub">Consulte ao menos um veículo para ver a comparação.</p>
           </div>
 
-          <!-- Active results (compare) -->
           <div id="activeC" style="display:none">
-
-            <div class="slider-block">
-              <div class="slider-top">
-                <span class="slider-lbl">Anos de uso projetados</span>
-                <span class="slider-big" id="anosDisplay-compare">1 ano</span>
-              </div>
-              <input type="range" id="anosSlider-compare" min="1" max="15" value="1" step="1" oninput="renderCompare()"/>
-              <div class="slider-ticks">
-                <span class="slider-tick">1</span><span class="slider-tick">3</span>
-                <span class="slider-tick">5</span><span class="slider-tick">7</span>
-                <span class="slider-tick">9</span><span class="slider-tick">11</span>
-                <span class="slider-tick">13</span><span class="slider-tick">15</span>
-              </div>
-            </div>
-
+            
             <div class="compare-grid">
               <div class="compare-col" id="metricsA"></div>
               <div class="compare-divider"></div>
               <div class="compare-col" id="metricsB"></div>
             </div>
 
-            <div class="chart-block">
-              <div class="chart-legend" id="legendC"></div>
-              <div class="chart-wrap"><canvas id="chartCompare" role="img" aria-label="Gráfico comparativo de desvalorização dois veículos"></canvas></div>
-            </div>
+            <div class="premium-wrapper">
+              <div class="premium-content locked" id="premium-content-compare">
+                
+                <div class="slider-block">
+                  <div class="slider-top"><span class="slider-lbl">Anos de uso projetados</span><span class="slider-big" id="anosDisplay-compare">1 ano</span></div>
+                  <input type="range" id="anosSlider-compare" min="1" max="5" value="1" step="1" oninput="renderCompare()"/>
+                  <div class="slider-ticks"><span class="slider-tick">1</span><span class="slider-tick">2</span><span class="slider-tick">3</span><span class="slider-tick">4</span><span class="slider-tick">5</span></div>
+                </div>
 
-            <div class="sec-title">Valor residual por ano</div>
-            <div class="bars-compare">
-              <div>
-                <div class="bars-col-title a" id="barsTitle-a">Carro A</div>
-                <div id="bars-a"></div>
+                <div class="chart-block">
+                  <div class="chart-legend" id="legendC"></div>
+                  <div class="chart-wrap"><canvas id="chartCompare" role="img" aria-label="Gráfico comparativo"></canvas></div>
+                </div>
+                <div class="sec-title">Valor residual por ano</div>
+                <div class="bars-compare">
+                  <div><div class="bars-col-title a" id="barsTitle-a">Carro A</div><div id="bars-a"></div></div>
+                  <div><div class="bars-col-title b" id="barsTitle-b">Carro B</div><div id="bars-b"></div></div>
+                </div>
+                <div class="insights-grid">
+                  <div class="insight-box a"><p class="insight-lbl a">Análise — Carro A</p><p class="insight-txt" id="insight-a">—</p></div>
+                  <div class="insight-box b"><p class="insight-lbl b">Análise — Carro B</p><p class="insight-txt" id="insight-b">—</p></div>
+                </div>
               </div>
-              <div>
-                <div class="bars-col-title b" id="barsTitle-b">Carro B</div>
-                <div id="bars-b"></div>
-              </div>
-            </div>
 
-            <div class="insights-grid">
-              <div class="insight-box a">
-                <p class="insight-lbl a">Análise — Carro A</p>
-                <p class="insight-txt" id="insight-a">—</p>
+              <!-- Trava Compare -->
+              <div class="lead-wall show" id="lead-wall-compare">
+                <div class="lead-card">
+                  <h3>Desbloqueie a Análise</h3>
+                  <p>Insira seus dados para liberar o gráfico comparativo e o relatório completo.</p>
+                  <input type="text" id="lead-nome-compare" class="lead-input" placeholder="Seu Nome Completo">
+                  <input type="tel" id="lead-whats-compare" class="lead-input" placeholder="WhatsApp (com DDD)">
+                  <select id="lead-intencao-compare" class="lead-input">
+                    <option value="">Pretende trocar de carro?</option>
+                    <option value="sim_imediato">Sim, nos próximos 30 dias</option>
+                    <option value="sim_futuro">Sim, nos próximos meses</option>
+                    <option value="nao">Estou apenas pesquisando</option>
+                  </select>
+                  <div class="lead-consent">
+                    <input type="checkbox" id="lead-lgpd-compare" onchange="document.getElementById('btn-liberar-compare').disabled = !this.checked">
+                    <label for="lead-lgpd-compare">Autorizo o uso dos meus dados para contato comercial, conforme a LGPD.</label>
+                  </div>
+                  <button id="btn-liberar-compare" class="btn-lead" onclick="destravarLead('compare')" disabled>Liberar Gráfico Comparativo</button>
+                </div>
               </div>
-              <div class="insight-box b">
-                <p class="insight-lbl b">Análise — Carro B</p>
-                <p class="insight-txt" id="insight-b">—</p>
-              </div>
-            </div>
 
+            </div><!-- /premium-wrapper -->
           </div><!-- /activeC -->
         </div>
       </div>
-
-    </div><!-- /wrap -->
-  </div><!-- /view-compare -->
-
-</div><!-- /views-host -->
+    </div>
+  </div>
+</div>
 
 <footer>
   AutoValor &mdash; Simulador &amp; Comparador &nbsp;·&nbsp;
-  Dados via <a href="https://deividfortuna.github.io/fipe/" target="_blank">API FIPE Pública</a> &nbsp;·&nbsp;
   Projeção por decaimento composto com fator de quilometragem
 </footer>
 
@@ -841,22 +706,19 @@ footer a{color:var(--accent);text-decoration:none}
 <script>
 'use strict';
 
-/* ─── CONFIG ─── */
-const API    = 'https://parallelum.com.br/fipe/api/v1';
-const KM_REF = 12000;
-const MAX_YR = 15;
-const ZERO   = '32000';
+const API         = 'https://parallelum.com.br/fipe/api/v1';
+const KM_REF      = 12000;
+const MAX_YR      = 5;
+const ZERO        = '32000';
+const FETCH_TIMEOUT = 10000;
 
-/* ─── PROFILES ─── */
 const PROF = {
   popular: { label:'Popular', rate:.08, key:'popular' },
   padrao:  { label:'Padrão',  rate:.12, key:'padrao'  },
   premium: { label:'Premium', rate:.18, key:'premium' },
 };
-const PREMIUM_BRANDS = ['BMW','MERCEDES','AUDI','PORSCHE','LAND ROVER','JAGUAR',
-  'LEXUS','VOLVO','MINI','MASERATI','FERRARI','LAMBORGHINI','BENTLEY','ROLLS','ASTON'];
-const POPULAR_BRANDS = ['FIAT','CHEVROLET','VOLKSWAGEN','VW','FORD',
-  'HYUNDAI','RENAULT','PEUGEOT','CITROËN','CITROEN','KIA'];
+const PREMIUM_BRANDS = ['BMW','MERCEDES','AUDI','PORSCHE','LAND ROVER','JAGUAR','LEXUS','VOLVO','MINI','MASERATI','FERRARI','LAMBORGHINI','BENTLEY'];
+const POPULAR_BRANDS = ['FIAT','CHEVROLET','VOLKSWAGEN','VW','FORD','HYUNDAI','RENAULT','PEUGEOT','CITROËN','CITROEN','KIA','BYD'];
 
 function getProfile(brand) {
   const u = (brand||'').toUpperCase();
@@ -865,21 +727,75 @@ function getProfile(brand) {
   return PROF.padrao;
 }
 
-/* ─── MATH ─── */
-const kmF  = km  => 1 + (km - KM_REF) / 100000;
-const proj = (v0, yrs, rate, km) =>
-  Math.max(v0 * Math.pow(Math.max(1 - rate * kmF(km), .01), yrs), v0 * .08);
+function fetchWithTimeout(url, ms = FETCH_TIMEOUT) {
+  const ctrl = new AbortController();
+  const tid   = setTimeout(() => ctrl.abort(), ms);
+  return fetch(url, { signal: ctrl.signal }).finally(() => clearTimeout(tid));
+}
 
-/* ─── FORMAT ─── */
+async function resolveRateReal(tipo, marcaCod, modeloCod, anoCod, fipeCode, fallbackRate, onStep) {
+  onStep(1, 3); await new Promise(r => setTimeout(r, 300)); 
+  onStep(2, 3); await new Promise(r => setTimeout(r, 300));
+  onStep(3, 3);
+  return { rate: fallbackRate, fromCache: false, usedFallback: true };
+}
+
+function parsePrice(val) {
+  if (!val) return 0;
+  return parseFloat(String(val).replace('R$','').replace(/\./g,'').replace(',','.').trim()) || 0;
+}
+
+const kmF  = km  => 1 + (km - KM_REF) / 100000;
+const proj = (v0, yrs, rate, km) => Math.max(v0 * Math.pow(Math.max(1 - rate * kmF(km), .01), yrs), v0 * .08);
+
 const fmt = v => v.toLocaleString('pt-BR',{style:'currency',currency:'BRL',maximumFractionDigits:0});
 const barClr = p => p > 65 ? '#4dff91' : p > 45 ? '#ff8c42' : '#ff4d4d';
 const anosLbl = n => n === 1 ? '1 ano' : `${n} anos`;
 
-/* ─── TIPO OPTIONS ─── */
 const TIPOS = [{v:'carros',l:'Carros'},{v:'motos',l:'Motos'},{v:'caminhoes',l:'Caminhões'}];
 function fillTipo(el) { TIPOS.forEach(({v,l}) => el.appendChild(new Option(l,v))); }
 
-/* ─── CHART SINGLETONS ─── */
+/* ── Atalho de Marcas ── */
+function aplicarAtalhoMarca(idState, termoBusca) {
+  const select = document.getElementById(`marca-${idState}`);
+  if (!select || select.disabled) return;
+  
+  for (let i = 0; i < select.options.length; i++) {
+    if (select.options[i].text.toUpperCase().includes(termoBusca)) {
+      select.selectedIndex = i;
+      select.dispatchEvent(new Event('change'));
+      break;
+    }
+  }
+}
+
+/* ── Trava de Leads ── */
+function destravarLead(view) {
+  const nome = document.getElementById(`lead-nome-${view}`).value.trim();
+  const whats = document.getElementById(`lead-whats-${view}`).value.trim();
+  const intencao = document.getElementById(`lead-intencao-${view}`).value;
+  const aceiteLgpd = document.getElementById(`lead-lgpd-${view}`).checked;
+
+  if (!nome || whats.length < 10 || !intencao) {
+    alert("Por favor, preencha todos os campos para liberar a análise.");
+    return;
+  }
+  if (!aceiteLgpd) {
+    alert("Para prosseguirmos, você precisa autorizar o contato marcando a caixa de seleção (LGPD).");
+    return;
+  }
+
+  let carrosConsultados = '';
+  if(view === 'single') carrosConsultados = carSingle.marcaNome + ' ' + carSingle.modeloNome;
+  if(view === 'compare') carrosConsultados = `${carA.marcaNome} ${carA.modeloNome} vs ${carB.marcaNome} ${carB.modeloNome}`;
+
+  console.log("🔥 NOVO LEAD CAPTURADO:", { view, nome, whats, intencao, carrosConsultados, lgpd: 'Aceito' });
+
+  document.getElementById(`premium-content-${view}`).classList.remove('locked');
+  document.getElementById(`lead-wall-${view}`).classList.remove('show');
+}
+
+
 let chartInstanceSingle  = null;
 let chartInstanceCompare = null;
 
@@ -893,17 +809,12 @@ function buildDataset(car, slotKey, anos) {
   const pal  = PALETTE[slotKey];
   const vals = Array.from({length: MAX_YR + 1}, (_,i) => Math.round(car.valueAt(i)));
   return {
-    label:                `${car.marcaNome} ${car.modeloNome}`,
-    data:                 vals,
-    borderColor:          pal.line,
-    backgroundColor:      pal.fill,
-    borderWidth:          2,
-    pointRadius:          ctx => ctx.dataIndex === anos ? 7 : 3,
+    label: `${car.marcaNome} ${car.modeloNome}`, data: vals,
+    borderColor: pal.line, backgroundColor: pal.fill, borderWidth: 2,
+    pointRadius: ctx => ctx.dataIndex === anos ? 7 : 3,
     pointBackgroundColor: ctx => ctx.dataIndex === anos ? pal.line : pal.line+'99',
-    pointBorderColor:     ctx => ctx.dataIndex === anos ? '#0b0d12' : 'transparent',
-    pointBorderWidth:     2,
-    fill:    true,
-    tension: .35,
+    pointBorderColor: ctx => ctx.dataIndex === anos ? '#0b0d12' : 'transparent',
+    pointBorderWidth: 2, fill: true, tension: .35,
   };
 }
 
@@ -911,36 +822,21 @@ const CHART_LABELS = Array.from({length: MAX_YR+1}, (_,i) => i===0?'Hoje':`+${i}
 
 function chartOptions() {
   return {
-    responsive:true, maintainAspectRatio:false,
-    interaction:{mode:'index', intersect:false},
+    responsive:true, maintainAspectRatio:false, interaction:{mode:'index', intersect:false},
     plugins:{
       legend:{display:false},
       tooltip:{
-        backgroundColor:'#1a1e2a', borderColor:'rgba(255,255,255,.09)',
-        borderWidth:1, titleColor:'#8b93a8', bodyColor:'#f0f2f8', padding:10,
+        backgroundColor:'#1a1e2a', borderColor:'rgba(255,255,255,.09)', borderWidth:1, titleColor:'#8b93a8', bodyColor:'#f0f2f8', padding:10,
         callbacks:{ label: c => ` ${c.dataset.label}: ${fmt(c.parsed.y)}` }
       }
     },
     scales:{
-      y:{
-        ticks:{
-          callback: v=>'R$'+(v>=1000?Math.round(v/1000)+'k':v),
-          color:'#4a5268', font:{size:11,family:"'DM Sans',sans-serif"}
-        },
-        grid:{color:'rgba(255,255,255,.04)'}, border:{color:'transparent'}
-      },
-      x:{
-        ticks:{
-          color:'#4a5268', font:{size:11,family:"'DM Sans',sans-serif"},
-          autoSkip:true, maxTicksLimit:16, maxRotation:0
-        },
-        grid:{display:false}, border:{color:'transparent'}
-      }
+      y:{ ticks:{ callback: v=>'R$'+(v>=1000?Math.round(v/1000)+'k':v), color:'#4a5268', font:{size:11,family:"'DM Sans',sans-serif"} }, grid:{color:'rgba(255,255,255,.04)'}, border:{color:'transparent'} },
+      x:{ ticks:{ color:'#4a5268', font:{size:11,family:"'DM Sans',sans-serif"}, autoSkip:true, maxTicksLimit:16, maxRotation:0 }, grid:{display:false}, border:{color:'transparent'} }
     }
   };
 }
 
-/* ─── SHARED RENDER HELPERS ─── */
 function renderBarsFor(car, containerId, titleId, colorKey, anos) {
   const cont  = document.getElementById(containerId);
   const title = document.getElementById(titleId);
@@ -957,14 +853,7 @@ function renderBarsFor(car, containerId, titleId, colorKey, anos) {
     const w    = Math.max(pct,1).toFixed(1);
     const row  = document.createElement('div');
     row.className = 'bar-row';
-    row.innerHTML = `
-      <span class="bar-year">${car.anoVeiculo+i}</span>
-      <div class="bar-track">
-        <div class="bar-fill" style="width:${w}%;background:${barClr(pct)}">
-          ${pct>16?pct.toFixed(0)+'%':''}
-        </div>
-      </div>
-      <span class="bar-loss">-${fmt(vP-vC)}</span>`;
+    row.innerHTML = `<span class="bar-year">${car.anoVeiculo+i}</span><div class="bar-track"><div class="bar-fill" style="width:${w}%;background:${barClr(pct)}">${pct>16?pct.toFixed(0)+'%':''}</div></div><span class="bar-loss">-${fmt(vP-vC)}</span>`;
     cont.appendChild(row);
   }
 }
@@ -972,88 +861,168 @@ function renderBarsFor(car, containerId, titleId, colorKey, anos) {
 function renderInsightFor(car, elId, colorKey) {
   const el = document.getElementById(elId);
   if (!car.ready) { el.innerHTML = 'Consulte o veículo para ver a análise.'; return; }
-  const anos   = parseInt(document.getElementById(
-    colorKey === 'single' ? 'anosSlider-single' : 'anosSlider-compare').value, 10);
+  const anos   = parseInt(document.getElementById(colorKey === 'single' ? 'anosSlider-single' : 'anosSlider-compare').value, 10);
   const vF     = car.valueAt(anos);
   const pct    = ((car.preco - vF) / car.preco * 100).toFixed(1);
   const F      = kmF(car.kmAnual).toFixed(2);
   const high   = parseFloat(pct) > 40;
-  const zero   = car.isZeroKm ? ' Veículo Zero KM: depreciação imediata de saída de concessionária considerada (+1 ano de offset).' : '';
+  const zero   = car.isZeroKm ? ' Veículo Zero KM: depreciação imediata de concessionária considerada.' : '';
+  const badgeHTML = `<span class="rate-badge historical" style="background:rgba(232,255,71,.1);border-color:rgba(232,255,71,.3);color:var(--accent);">📊 Projeção avançada por categoria de mercado</span>`;
+
   el.innerHTML = `
     <strong style="color:var(--text)">${car.marcaNome} ${car.modeloNome}</strong>
-    · Perfil <strong>${car.profile.label}</strong> (${(car.profile.rate*100).toFixed(0)}%/ano).<br>
+    · ${car.profile.label} (${(car.rateUsed*100).toFixed(1)}%/ano).<br>
     Com <strong>${car.kmAnual.toLocaleString('pt-BR')} km/ano</strong>, fator KM = <strong>${F}×</strong>.
     Após <strong>${anosLbl(anos)}</strong>: estimado em <strong style="color:var(--text)">${fmt(vF)}</strong>
     — desvalorização de <strong style="color:${high?'var(--red)':'var(--green)'}">${pct}%</strong>.
-    ${high?'⚠ Acima da média.':'✓ Dentro da média histórica.'}${zero}`;
+    ${high?'⚠ Acima da média.':'✓ Dentro da média.'}${zero}
+    <br>${badgeHTML}`;
 }
 
-/* ════════════════════════════════════════════
-   CarState Class
-════════════════════════════════════════════ */
 class CarState {
   constructor(id) {
-    this.id         = id;
-    this.preco      = 0;
-    this.anoVeiculo = 0;
-    this.isZeroKm   = false;
-    this.marcaNome  = '';
-    this.modeloNome = '';
-    this.profile    = null;
-    this.ready      = false;
+    this.id          = id;
+    this.preco       = 0;
+    this.anoVeiculo  = 0;
+    this.isZeroKm    = false;
+    this.marcaNome   = '';
+    this.modeloNome  = '';
+    this.profile     = null;
+    this.rateUsed    = 0;    
+    this.ready       = false;
+    this.modelosData = []; // Armazena a lista de modelos em memória
 
     this.$tipo    = document.getElementById(`tipo-${id}`);
     this.$marca   = document.getElementById(`marca-${id}`);
     this.$modelo  = document.getElementById(`modelo-${id}`);
+    this.$modeloInput = document.getElementById(`modelo-${id}-input`);
+    this.$autoList    = document.getElementById(`dl-modelo-${id}`);
     this.$ano     = document.getElementById(`ano-${id}`);
     this.$fipe    = document.getElementById(`fipe-${id}`);
     this.$km      = document.getElementById(`km-${id}`);
     this.$btn     = document.getElementById(`btn-${id}`);
     this.$loading = document.getElementById(`loading-${id}`);
     this.$msg     = document.getElementById(`loadingMsg-${id}`);
+    this.$bar     = document.getElementById(`loadingBar-${id}`);
     this.$profile = document.getElementById(`profileTag-${id}`);
 
     fillTipo(this.$tipo);
-
     this.$tipo.addEventListener('change',   () => this.loadMarcas());
     this.$marca.addEventListener('change',  () => this.loadModelos());
     this.$modelo.addEventListener('change', () => this.loadAnos());
     this.$km.addEventListener('input', () => { if (this.ready) this._onKmChange(); });
 
+    // LÓGICA DO CUSTOM AUTOCOMPLETE
+    if (this.$modeloInput) {
+      // Filtra enquanto digita
+      this.$modeloInput.addEventListener('input', (e) => this.renderAutoList(e.target.value));
+      
+      // Abre a lista ao clicar no campo
+      this.$modeloInput.addEventListener('focus', () => {
+        this.$modeloInput.value = '';
+        this.renderAutoList('');
+      });
+
+      // Fecha a lista ao clicar fora
+      document.addEventListener('click', (e) => {
+        if (this.$autoList && !this.$modeloInput.contains(e.target) && !this.$autoList.contains(e.target)) {
+          this.$autoList.classList.remove('show');
+        }
+      });
+    }
+
     this.loadMarcas();
   }
 
   _onKmChange() {
-    if      (this.id === 'single')  renderSingle();
+    if (this.id === 'single') renderSingle();
     else if (this.id === 'a' || this.id === 'b') renderCompare();
   }
 
   get kmAnual() {
     const v = parseInt(this.$km.value, 10);
-    return (!isNaN(v) && v >= 1000) ? v : KM_REF;
+    return (!isNaN(v) && v >= 0) ? v : KM_REF;
   }
 
-  _setLoading(msg) {
+  _startLoading() {
+    const MSGS = ['Consultando FIPE atual...', 'Calculando projeção matemática...', 'Montando curva de desvalorização...'];
+    const PCTS = ['18%', '55%', '85%'];
+    let idx = 0;
     this.$loading.style.display = 'flex';
-    this.$msg.textContent = msg;
+    this.$msg.textContent = MSGS[0];
+    if (this.$bar) this.$bar.style.width = PCTS[0];
     this.$btn.disabled = true;
+    this._loadingInterval = setInterval(() => {
+      idx = Math.min(idx + 1, MSGS.length - 1);
+      this.$msg.textContent = MSGS[idx];
+      if (this.$bar) this.$bar.style.width = PCTS[idx];
+    }, 1500);
   }
+
+  _stepLoading(step) {
+    const pcts = ['18%', '55%', '85%', '100%'];
+    const msgs = ['Consultando FIPE...', 'Calculando...', 'Montando curva...', 'Finalizando...'];
+    if (this.$bar) this.$bar.style.width = pcts[step] || '100%';
+    this.$msg.textContent = msgs[step] || msgs[msgs.length - 1];
+  }
+
   _clearLoading() {
-    this.$loading.style.display = 'none';
-    this.$btn.disabled = false;
+    if (this._loadingInterval) { clearInterval(this._loadingInterval); this._loadingInterval = null; }
+    if (this.$bar) this.$bar.style.width = '100%';
+    setTimeout(() => {
+      this.$loading.style.display = 'none';
+      this.$btn.disabled = false;
+      if (this.$bar) this.$bar.style.width = '0%';
+    }, 300);
+  }
+
+  // Renderiza e filtra a lista customizada
+  renderAutoList(filtro) {
+    if (!this.$autoList || !this.modelosData.length) return;
+    this.$autoList.innerHTML = '';
+    const termo = filtro.toLowerCase();
+    
+    const filtrados = this.modelosData.filter(m => m.nome.toLowerCase().includes(termo));
+    
+    filtrados.forEach(m => {
+      const div = document.createElement('div');
+      div.className = 'autocomplete-item';
+      div.textContent = m.nome;
+      div.onclick = () => {
+        this.$modeloInput.value = m.nome; // Preenche o visual
+        this.$modelo.value = m.codigo;    // Preenche o ID real oculto
+        this.$autoList.classList.remove('show');
+        this.$modelo.dispatchEvent(new Event('change')); // Dispara a busca dos anos
+      };
+      this.$autoList.appendChild(div);
+    });
+    
+    if (filtrados.length > 0) {
+      this.$autoList.classList.add('show');
+    } else {
+      this.$autoList.classList.remove('show');
+    }
   }
 
   _resetModelo() {
     this.$modelo.innerHTML = '<option value="">Selecione a marca</option>';
     this.$modelo.disabled  = true;
+    this.modelosData = [];
+    if (this.$modeloInput) {
+      this.$modeloInput.value = '';
+      this.$modeloInput.disabled = true;
+      this.$modeloInput.placeholder = 'Selecione a marca primeiro...';
+      if(this.$autoList) this.$autoList.innerHTML = '';
+    }
     this._resetAno();
   }
+  
   _resetAno() {
     this.$ano.innerHTML = '<option value="">Selecione o modelo</option>';
     this.$ano.disabled  = true;
     this.$fipe.value    = '';
-    this.ready  = false;
-    this.profile = null;
+    this.ready          = false;
+    this.profile        = null;
     this.$profile.className   = 'profile-tag';
     this.$profile.textContent = '—';
   }
@@ -1063,7 +1032,7 @@ class CarState {
     this.$marca.innerHTML = '<option value="">Carregando...</option>';
     this._resetModelo();
     try {
-      const d = await (await fetch(`${API}/${tipo}/marcas`)).json();
+      const d = await (await fetchWithTimeout(`${API}/${tipo}/marcas`)).json();
       this.$marca.innerHTML = '<option value="">Selecione a marca</option>';
       d.forEach(m => this.$marca.appendChild(new Option(m.nome, m.codigo)));
     } catch { this.$marca.innerHTML = '<option value="">Erro ao carregar</option>'; }
@@ -1072,14 +1041,26 @@ class CarState {
   async loadModelos() {
     if (!this.$marca.value) return;
     this.$modelo.disabled = false;
-    this.$modelo.innerHTML = '<option value="">Carregando...</option>';
+    if (this.$modeloInput) {
+      this.$modeloInput.disabled = false;
+      this.$modeloInput.placeholder = 'Carregando modelos...';
+    }
     this._resetAno();
     try {
       const tipo = this.$tipo.value;
-      const d = await (await fetch(`${API}/${tipo}/marcas/${this.$marca.value}/modelos`)).json();
+      const d = await (await fetchWithTimeout(`${API}/${tipo}/marcas/${this.$marca.value}/modelos`)).json();
+      
+      this.modelosData = d.modelos; // Salva para o filtro
       this.$modelo.innerHTML = '<option value="">Selecione o modelo</option>';
       d.modelos.forEach(m => this.$modelo.appendChild(new Option(m.nome, m.codigo)));
-    } catch { this.$modelo.innerHTML = '<option value="">Erro ao carregar</option>'; }
+      
+      this.renderAutoList(''); // Prepara a lista fechada
+      
+      if (this.$modeloInput) this.$modeloInput.placeholder = 'Digite ou selecione o modelo...';
+    } catch { 
+      this.$modelo.innerHTML = '<option value="">Erro ao carregar</option>'; 
+      if (this.$modeloInput) this.$modeloInput.placeholder = 'Erro de conexão';
+    }
   }
 
   async loadAnos() {
@@ -1089,7 +1070,7 @@ class CarState {
     this.$fipe.value = '';
     try {
       const tipo = this.$tipo.value;
-      const d = await (await fetch(`${API}/${tipo}/marcas/${this.$marca.value}/modelos/${this.$modelo.value}/anos`)).json();
+      const d = await (await fetchWithTimeout(`${API}/${tipo}/marcas/${this.$marca.value}/modelos/${this.$modelo.value}/anos`)).json();
       this.$ano.innerHTML = '<option value="">Selecione o ano</option>';
       d.forEach(a => {
         const isZero = String(a.codigo).startsWith(ZERO);
@@ -1099,29 +1080,37 @@ class CarState {
   }
 
   async consultar() {
-    const { value: marcaCod } = this.$marca;
-    const { value: modeloCod } = this.$modelo;
-    const { value: anoCod }   = this.$ano;
-    if (!marcaCod || !modeloCod || !anoCod) {
-      alert(`Selecione marca, modelo e ano.`);
-      return;
-    }
-    this._setLoading('Consultando FIPE...');
+    const marcaCod  = this.$marca.value;
+    const modeloCod = this.$modelo.value;
+    const anoCod    = this.$ano.value;
+    if (!marcaCod || !modeloCod || !anoCod) { alert('Selecione marca, modelo e ano.'); return; }
+
+    this._startLoading();
+
+    const viewLock = this.id === 'single' ? 'single' : 'compare';
+    const premium = document.getElementById(`premium-content-${viewLock}`);
+    const wall = document.getElementById(`lead-wall-${viewLock}`);
+    if(premium && wall) { premium.classList.add('locked'); wall.classList.add('show'); }
+
     try {
       const tipo = this.$tipo.value;
-      const d    = await (await fetch(`${API}/${tipo}/marcas/${marcaCod}/modelos/${modeloCod}/anos/${anoCod}`)).json();
-      this.preco      = parseFloat(d.Valor.replace('R$','').replace(/\./g,'').replace(',','.').trim());
+      const d = await (await fetchWithTimeout(`${API}/${tipo}/marcas/${marcaCod}/modelos/${modeloCod}/anos/${anoCod}`)).json();
+
+      this.preco      = parsePrice(d.Valor);
       this.anoVeiculo = parseInt(d.AnoModelo, 10);
       this.isZeroKm   = String(anoCod).startsWith(ZERO);
       this.marcaNome  = this.$marca.options[this.$marca.selectedIndex]?.text ?? '';
       this.modeloNome = this.$modelo.options[this.$modelo.selectedIndex]?.text ?? '';
       this.profile    = getProfile(this.marcaNome);
-      this.ready      = true;
 
       this.$fipe.value = d.Valor;
       this.$profile.className   = `profile-tag ${this.profile.key}`;
       this.$profile.textContent = this.profile.label;
 
+      const { rate } = await resolveRateReal(tipo, marcaCod, modeloCod, anoCod, null, this.profile.rate, (step) => this._stepLoading(step));
+
+      this.rateUsed = rate;
+      this.ready    = true;
       this._clearLoading();
 
       if (this.id === 'single') {
@@ -1133,90 +1122,56 @@ class CarState {
         document.getElementById('activeC').style.display = 'block';
         renderCompare();
       }
-    } catch {
+    } catch (err) {
       this._clearLoading();
       alert('Erro ao consultar FIPE. Verifique sua conexão.');
     }
   }
 
-  /* valueAt(anos) — compound projection with Zero KM offset */
   valueAt(anos) {
     if (!this.ready || anos < 0) return null;
     if (anos === 0) return this.preco;
     const offset = this.isZeroKm ? anos + 1 : anos;
-    return proj(this.preco, offset, this.profile.rate, this.kmAnual);
+    return proj(this.preco, offset, this.rateUsed, this.kmAnual);
   }
 }
 
-/* ════════════════════════════════════════════
-   INSTANTIATE 3 INDEPENDENT STATE OBJECTS
-════════════════════════════════════════════ */
 const carSingle = new CarState('single');
 const carA      = new CarState('a');
 const carB      = new CarState('b');
 
-/* ════════════════════════════════════════════
-   RENDER: SINGLE VIEW
-════════════════════════════════════════════ */
 function renderSingle() {
   if (!carSingle.ready) return;
   const anos = parseInt(document.getElementById('anosSlider-single').value, 10);
   document.getElementById('anosDisplay-single').textContent = anosLbl(anos);
 
-  /* Metrics */
   const vF   = carSingle.valueAt(anos);
   const loss = carSingle.preco - vF;
   const pct  = (loss / carSingle.preco * 100).toFixed(1);
   const F    = kmF(carSingle.kmAnual).toFixed(2);
+  
   document.getElementById('metricsS').innerHTML = `
-    <div class="metric-card s">
-      <p class="mc-lbl">Valor Atual (FIPE)</p>
-      <p class="mc-val ok">${fmt(carSingle.preco)}</p>
-      <p class="mc-sub">${carSingle.isZeroKm?'⚡ Zero KM':`Ano ${carSingle.anoVeiculo}`} · ${carSingle.profile.label}</p>
-    </div>
-    <div class="metric-card s">
-      <p class="mc-lbl">Valor após ${anosLbl(anos)}</p>
-      <p class="mc-val warn">${fmt(vF)}</p>
-      <p class="mc-sub">Fator KM: ${F}× · ${carSingle.kmAnual.toLocaleString('pt-BR')} km/ano</p>
-    </div>
-    <div class="metric-card s">
-      <p class="mc-lbl">Perda Total</p>
-      <p class="mc-val danger">-${pct}%</p>
-      <p class="mc-sub">-${fmt(loss)}</p>
-    </div>`;
+    <div class="metric-card s"><p class="mc-lbl">Valor Atual (FIPE)</p><p class="mc-val ok">${fmt(carSingle.preco)}</p><p class="mc-sub">${carSingle.isZeroKm?'⚡ Zero KM':`Ano ${carSingle.anoVeiculo}`} · ${carSingle.profile.label}</p></div>
+    <div class="metric-card s"><p class="mc-lbl">Valor após ${anosLbl(anos)}</p><p class="mc-val warn">${fmt(vF)}</p><p class="mc-sub">Fator KM: ${F}× · ${carSingle.kmAnual.toLocaleString('pt-BR')} km/ano</p></div>
+    <div class="metric-card s"><p class="mc-lbl">Perda Total</p><p class="mc-val danger">-${pct}%</p><p class="mc-sub">Projeção mercado</p></div>`;
 
-  /* Bars */
   renderBarsFor(carSingle, 'barsS', 'barsTitleS', 'single', anos);
 
-  /* Chart */
   if (chartInstanceSingle) chartInstanceSingle.destroy();
-  document.getElementById('legendS').innerHTML = `
-    <div class="legend-item">
-      <span class="legend-dot" style="background:${PALETTE.single.line}"></span>
-      <span>${carSingle.marcaNome} ${carSingle.modeloNome}</span>
-    </div>`;
-  chartInstanceSingle = new Chart(
-    document.getElementById('chartSingle').getContext('2d'),
-    { type:'line', data:{ labels: CHART_LABELS, datasets:[buildDataset(carSingle,'single',anos)] }, options: chartOptions() }
-  );
+  document.getElementById('legendS').innerHTML = `<div class="legend-item"><span class="legend-dot" style="background:${PALETTE.single.line}"></span><span>${carSingle.marcaNome} ${carSingle.modeloNome}</span></div>`;
+  chartInstanceSingle = new Chart(document.getElementById('chartSingle').getContext('2d'), { type:'line', data:{ labels: CHART_LABELS, datasets:[buildDataset(carSingle,'single',anos)] }, options: chartOptions() });
 
-  /* Insight */
   renderInsightFor(carSingle, 'insightS', 'single');
 }
 
-/* ════════════════════════════════════════════
-   RENDER: COMPARE VIEW
-════════════════════════════════════════════ */
 function renderCompare() {
   if (!carA.ready && !carB.ready) return;
   const anos = parseInt(document.getElementById('anosSlider-compare').value, 10);
   document.getElementById('anosDisplay-compare').textContent = anosLbl(anos);
 
-  /* Metrics A */
   _renderCompareMetrics(carA, 'metricsA', 'a', anos);
   _renderCompareMetrics(carB, 'metricsB', 'b', anos);
 
-  /* Winner badge */
   document.querySelectorAll('#activeC .winner-badge').forEach(el => el.classList.remove('show'));
   if (carA.ready && carB.ready) {
     const pA = (carA.preco - carA.valueAt(anos)) / carA.preco;
@@ -1226,112 +1181,61 @@ function renderCompare() {
     if (el) el.classList.add('show');
   }
 
-  /* Bars */
   renderBarsFor(carA, 'bars-a', 'barsTitle-a', 'a', anos);
   renderBarsFor(carB, 'bars-b', 'barsTitle-b', 'b', anos);
 
-  /* Chart */
   const datasets = [];
   if (carA.ready) datasets.push(buildDataset(carA, 'a', anos));
   if (carB.ready) datasets.push(buildDataset(carB, 'b', anos));
 
-  document.getElementById('legendC').innerHTML = datasets.map(ds => `
-    <div class="legend-item">
-      <span class="legend-dot" style="background:${ds.borderColor}"></span>
-      <span>${ds.label}</span>
-    </div>`).join('');
+  document.getElementById('legendC').innerHTML = datasets.map(ds => `<div class="legend-item"><span class="legend-dot" style="background:${ds.borderColor}"></span><span>${ds.label}</span></div>`).join('');
 
   if (chartInstanceCompare) chartInstanceCompare.destroy();
-  chartInstanceCompare = new Chart(
-    document.getElementById('chartCompare').getContext('2d'),
-    { type:'line', data:{ labels: CHART_LABELS, datasets }, options: chartOptions() }
-  );
+  chartInstanceCompare = new Chart(document.getElementById('chartCompare').getContext('2d'), { type:'line', data:{ labels: CHART_LABELS, datasets }, options: chartOptions() });
 
-  /* Insights */
   renderInsightFor(carA, 'insight-a', 'a');
   renderInsightFor(carB, 'insight-b', 'b');
 }
 
 function _renderCompareMetrics(car, colId, slot, anos) {
   const col = document.getElementById(colId);
-  if (!car.ready) {
-    col.innerHTML = `<div style="padding:14px;color:var(--text3);font-size:12px">Consulte o Carro ${slot.toUpperCase()} para ver os dados.</div>`;
-    return;
-  }
+  if (!car.ready) { col.innerHTML = `<div style="padding:14px;color:var(--text3);font-size:12px">Consulte o Carro ${slot.toUpperCase()} para ver os dados.</div>`; return; }
   const vF   = car.valueAt(anos);
   const loss = car.preco - vF;
   const pct  = (loss / car.preco * 100).toFixed(1);
   const F    = kmF(car.kmAnual).toFixed(2);
   col.innerHTML = `
-    <div class="metric-card ${slot}">
-      <p class="mc-lbl">Valor Atual (FIPE)</p>
-      <p class="mc-val ok">${fmt(car.preco)}</p>
-      <p class="mc-sub">${car.isZeroKm?'⚡ Zero KM':`Ano ${car.anoVeiculo}`} · ${car.profile.label}</p>
-    </div>
-    <div class="metric-card ${slot}">
-      <p class="mc-lbl">Valor após ${anosLbl(anos)}</p>
-      <p class="mc-val warn">${fmt(vF)}</p>
-      <p class="mc-sub">F KM = ${F}× · ${car.kmAnual.toLocaleString('pt-BR')} km/ano</p>
-    </div>
-    <div class="metric-card ${slot}">
-      <p class="mc-lbl">Perda Total</p>
-      <p class="mc-val danger">-${pct}%</p>
-      <p class="mc-sub">-${fmt(loss)}</p>
-      <span class="winner-badge" id="winner-${slot}">✓ Menor perda</span>
-    </div>`;
+    <div class="metric-card ${slot}"><p class="mc-lbl">Valor Atual</p><p class="mc-val ok">${fmt(car.preco)}</p><p class="mc-sub">${car.isZeroKm?'⚡ Zero KM':`Ano ${car.anoVeiculo}`}</p></div>
+    <div class="metric-card ${slot}"><p class="mc-lbl">Valor após ${anosLbl(anos)}</p><p class="mc-val warn">${fmt(vF)}</p><p class="mc-sub">F KM = ${F}×</p></div>
+    <div class="metric-card ${slot}"><p class="mc-lbl">Perda Total</p><p class="mc-val danger">-${pct}%</p><p class="mc-sub">Proj. Mercado</p><span class="winner-badge" id="winner-${slot}">✓ Menor perda</span></div>`;
 }
 
-/* ════════════════════════════════════════════
-   SPA NAVIGATION
-════════════════════════════════════════════ */
 let currentView = 'single';
-
 function switchView(id) {
   if (id === currentView) return;
   currentView = id;
-
-  /* Views */
   document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
   document.getElementById(`view-${id}`).classList.add('active');
-
-  /* Tab buttons */
   document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
   const activeBtn = document.getElementById(`tab-${id}`);
   activeBtn.classList.add('active');
-
-  /* Slide the pill indicator */
   positionIndicator(activeBtn);
-
-  /* Re-render if data exists (chart canvas becomes visible → must redraw) */
   if (id === 'single'  && carSingle.ready)         renderSingle();
   if (id === 'compare' && (carA.ready || carB.ready)) renderCompare();
 }
 
 function positionIndicator(btn) {
-  const ind  = document.getElementById('tabIndicator');
+  const ind = document.getElementById('tabIndicator');
   const tabs = document.getElementById('navTabs');
-  
-  // Pegamos as dimensões e coordenadas
-  const tr   = tabs.getBoundingClientRect();
-  const br   = btn.getBoundingClientRect();
-  
-  // Aplicamos a largura e a altura exatas do botão ativo
+  const tr = tabs.getBoundingClientRect();
+  const br = btn.getBoundingClientRect();
   ind.style.width  = br.width  + 'px';
   ind.style.height = br.height + 'px';
-  
-  // Transladamos nos eixos X e Y
   ind.style.transform = `translate(${br.left - tr.left - 4}px, ${br.top - tr.top - 4}px)`;
 }
 
-/* Init indicator on load */
-window.addEventListener('load', () => {
-  positionIndicator(document.getElementById('tab-single'));
-});
-/* Re-position on resize */
-window.addEventListener('resize', () => {
-  const activeBtn = document.querySelector('.tab-btn.active');
-  if (activeBtn) positionIndicator(activeBtn);
-});
+window.addEventListener('load', () => positionIndicator(document.getElementById('tab-single')));
+window.addEventListener('resize', () => { const activeBtn = document.querySelector('.tab-btn.active'); if (activeBtn) positionIndicator(activeBtn); });
 </script>
 </body>
 </html>
