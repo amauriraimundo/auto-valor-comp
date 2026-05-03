@@ -492,6 +492,118 @@ footer a{color:var(--accent);text-decoration:none}
 ::-webkit-scrollbar{width:5px}
 ::-webkit-scrollbar-track{background:var(--bg)}
 ::-webkit-scrollbar-thumb{background:var(--border2);border-radius:3px}
+
+/* ═══════════════════════════════════════════════════
+   LEAD WALL (TRAVA DE CAPTAÇÃO)
+═══════════════════════════════════════════════════ */
+.premium-wrapper {
+  position: relative;
+  margin-top: 24px;
+}
+.premium-content {
+  transition: filter 0.3s ease;
+}
+.premium-content.locked {
+  filter: blur(8px);
+  pointer-events: none;
+  user-select: none;
+}
+.lead-wall {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: rgba(11, 13, 18, 0.4);
+  border-radius: var(--r);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s;
+}
+.lead-wall.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+.lead-card {
+  background: var(--bg2);
+  border: 1px solid var(--accent);
+  padding: 28px 24px;
+  border-radius: var(--r-lg);
+  width: 100%;
+  max-width: 380px;
+  text-align: center;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+}
+.lead-card h3 {
+  font-family: var(--font-d);
+  font-size: 18px;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+.lead-card p {
+  font-size: 12px;
+  color: var(--text2);
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
+.lead-input {
+  width: 100%;
+  padding: 12px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  color: var(--text);
+  margin-bottom: 12px;
+  font-family: var(--font-b);
+  font-size: 13px;
+}
+.lead-input:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+.btn-lead {
+  background: var(--accent);
+  color: #0b0d12;
+  font-weight: 800;
+  width: 100%;
+  padding: 14px;
+  border-radius: var(--r);
+  border: none;
+  cursor: pointer;
+  margin-top: 8px;
+  font-family: var(--font-d);
+  text-transform: uppercase;
+  letter-spacing: .05em;
+  transition: filter 0.2s;
+}
+.btn-lead:hover {
+  filter: brightness(1.1);
+}
+.lead-consent {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin-bottom: 16px;
+  text-align: left;
+}
+.lead-consent input[type="checkbox"] {
+  margin-top: 2px;
+  cursor: pointer;
+  accent-color: var(--accent);
+}
+.lead-consent label {
+  font-size: 10px;
+  color: var(--text3);
+  line-height: 1.4;
+  cursor: pointer;
+}
+.btn-lead:disabled {
+  opacity: 0.5;
+  filter: grayscale(1);
+  cursor: not-allowed;
+}
 </style>
 </head>
 <body>
@@ -622,6 +734,7 @@ footer a{color:var(--accent);text-decoration:none}
           </div>
 
           <!-- Active results (single) -->
+          <!-- Active results (single) -->
           <div id="activeS" style="display:none">
 
             <div class="slider-block">
@@ -629,36 +742,63 @@ footer a{color:var(--accent);text-decoration:none}
                 <span class="slider-lbl">Anos de uso projetados</span>
                 <span class="slider-big" id="anosDisplay-single">1 ano</span>
               </div>
-              <input type="range" id="anosSlider-single" min="1" max="5" value="1" step="1" oninput="renderSingle()"/>
+              <input type="range" id="anosSlider-single" min="1" max="15" value="1" step="1" oninput="renderSingle()"/>
               <div class="slider-ticks">
-                <span class="slider-tick">1</span>
-                <span class="slider-tick">2</span>
-                <span class="slider-tick">3</span>
-                <span class="slider-tick">4</span>
-                <span class="slider-tick">5</span>
+                <span class="slider-tick">1</span><span class="slider-tick">3</span>
+                <span class="slider-tick">5</span><span class="slider-tick">7</span>
+                <span class="slider-tick">9</span><span class="slider-tick">11</span>
+                <span class="slider-tick">13</span><span class="slider-tick">15</span>
               </div>
             </div>
 
             <div class="metrics-row" id="metricsS"></div>
 
             <div class="chart-block">
-              <div class="sec-title">Curva de valor estimado — 5 anos</div>
+              <div class="sec-title">Curva de valor estimado — 15 anos</div>
               <div class="chart-legend" id="legendS"></div>
               <div class="chart-wrap"><canvas id="chartSingle" role="img" aria-label="Gráfico de desvalorização do veículo"></canvas></div>
             </div>
 
-            <div class="bars-section">
-              <div class="sec-title">Valor residual por ano</div>
-              <div class="bars-col-title s" id="barsTitleS"></div>
-              <div id="barsS"></div>
-            </div>
+                <div class="bars-section">
+                  <div class="sec-title">Valor residual por ano</div>
+                  <div class="bars-col-title s" id="barsTitleS"></div>
+                  <div id="barsS"></div>
+                </div>
 
-            <div class="insight-box s">
-              <p class="insight-lbl s">Análise do veículo</p>
-              <p class="insight-txt" id="insightS">—</p>
-            </div>
+                <div class="insight-box s">
+                  <p class="insight-lbl s">Análise do veículo</p>
+                  <p class="insight-txt" id="insightS">—</p>
+                </div>
+              </div>
 
-          </div>
+              <!-- Formulário Flutuante (Trava) -->
+              <div class="lead-wall show" id="lead-wall-single">
+                <div class="lead-card">
+                  <h3>Desbloqueie a Análise</h3>
+                  <p>Insira seus dados para liberar o gráfico de 15 anos e o relatório completo de desvalorização.</p>
+                  <input type="text" id="lead-nome" class="lead-input" placeholder="Seu Nome Completo">
+                  <input type="tel" id="lead-whats" class="lead-input" placeholder="WhatsApp (com DDD)">
+                  <select id="lead-intencao" class="lead-input">
+                    <option value="">Pretende trocar de carro?</option>
+                    <option value="sim_imediato">Sim, nos próximos 30 dias</option>
+                    <option value="sim_futuro">Sim, nos próximos meses</option>
+                    <option value="nao">Estou apenas pesquisando</option>
+                  </select>
+
+                  <!-- NOVO: Checkbox LGPD -->
+                  <div class="lead-consent">
+                    <input type="checkbox" id="lead-lgpd">
+                    <label for="lead-lgpd">Autorizo o uso dos meus dados para receber contato comercial com propostas e avaliações, conforme a LGPD.</label>
+                  </div>
+
+                  <button class="btn-lead" onclick="destravarLead('single')">Liberar Gráfico</button>
+                  
+                  
+                </div>
+              </div>
+
+            </div><!-- /premium-wrapper -->
+          </div><!-- /activeS -->
         </div>
       </div>
 
@@ -895,6 +1035,7 @@ footer a{color:var(--accent);text-decoration:none}
 <!-- ════════════════════════════════════════════════
      JAVASCRIPT
 ════════════════════════════════════════════════ -->
+
 <script>
 'use strict';
 
@@ -1240,6 +1381,12 @@ class CarState {
       return;
     }
     this._setLoading('Consultando FIPE...');
+
+    // Reseta a trava ao fazer nova consulta
+    const premium = document.getElementById(`premium-content-${this.id}`);
+    const wall = document.getElementById(`lead-wall-${this.id}`);
+    if(premium && wall) { premium.classList.add('locked'); wall.classList.add('show'); }
+
     try {
       const tipo = this.$tipo.value;
       const d    = await (await fetch(`${API}/${tipo}/marcas/${marcaCod}/modelos/${modeloCod}/anos/${anoCod}`)).json();
@@ -1465,6 +1612,45 @@ window.addEventListener('resize', () => {
   const activeBtn = document.querySelector('.tab-btn.active');
   if (activeBtn) positionIndicator(activeBtn);
 });
+
+/* ════════════════════════════════════════════
+   FUNÇÃO DA TRAVA DE LEADS
+════════════════════════════════════════════ */
+/* ════════════════════════════════════════════
+   FUNÇÃO DA TRAVA DE LEADS
+════════════════════════════════════════════ */
+function destravarLead(view) {
+  // Captura os dados
+  const nome = document.getElementById('lead-nome').value.trim();
+  const whats = document.getElementById('lead-whats').value.trim();
+  const intencao = document.getElementById('lead-intencao').value;
+  const aceiteLgpd = document.getElementById('lead-lgpd').checked;
+
+  // Validação simples dos campos
+  if (!nome || whats.length < 10 || !intencao) {
+    alert("Por favor, preencha todos os campos para liberar a análise.");
+    return;
+  }
+
+  // Validação da LGPD
+  if (!aceiteLgpd) {
+    alert("Para prosseguirmos, você precisa autorizar o contato marcando a caixa de seleção (LGPD).");
+    return;
+  }
+
+  // LOG PARA TESTE (No futuro, aqui entra o Fetch para o webhook do CRM/Dealernet)
+  console.log("🔥 NOVO LEAD CAPTURADO:", { 
+    nome, 
+    whats, 
+    intencao, 
+    carroConsultado: carSingle.marcaNome + ' ' + carSingle.modeloNome,
+    lgpd: aceiteLgpd ? 'Aceito' : 'Pendente'
+  });
+
+  // Remove o borrado e esconde o formulário
+  document.getElementById(`premium-content-${view}`).classList.remove('locked');
+  document.getElementById(`lead-wall-${view}`).classList.remove('show');
+}
 </script>
 </body>
 </html>
